@@ -2,7 +2,7 @@
 
 .floating-widgets {
   position: fixed;
-  bottom: 20px;
+  /* bottom: 20px; */
   right: 20px;
   display: flex;
   flex-direction: column;
@@ -10,11 +10,12 @@
 }
 
 .widget {
-  background-color: #3498db;
+  border-radius: 100px 10px 10px 0px;
+  /* background-color: #3498db; */
   color: #fff;
-  padding: 10px;
+  padding: 10px 20px;
   margin-bottom: 10px;
-  border-radius: 5px;
+  /* border-radius: 5px; */
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.3s ease; /* Added transform for pop-out effect */
 }
