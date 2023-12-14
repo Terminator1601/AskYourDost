@@ -1,6 +1,7 @@
 import Header from "@/components/Header/Header";
 import Navbar from "@/components/Navbar/Navbar";
 import PopularSearches from "@/components/PopularSearches/PopularSearches";
+import RecentlyAdded from "@/components/RecentlyAdded/RecentlyAdded";
 import Image from "next/image";
 
 export default function Home() {
@@ -10,6 +11,7 @@ export default function Home() {
       <hr/>
       <Navbar/>
       <PopularSearches/>
+      <RecentlyAdded/>
     </main>
   );
 }

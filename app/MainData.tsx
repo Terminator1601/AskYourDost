@@ -48,3 +48,37 @@ export const popularSectionData = [
   },
   // Add more items as needed
 ];
+
+
+
+export const recentlyAddedData = [
+  {
+    title: "Hotels",
+    imageUrl: "/images/hotels.png",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+  },
+  {
+    title: "Restaurants",
+    imageUrl: "/images/hotels.png",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+  },
+  {
+    title: "Spa",
+    imageUrl: "/images/hotels.png",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+  },
+  {
+    title: "Gym",
+    imageUrl: "/images/hotels.png",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+  },{
+    title: "Coaching",
+    imageUrl: "/images/hotels.png",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+  },{
+    title: "Consultant",
+    imageUrl: "/images/hotels.png",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+  },
+  // Add more items as needed
+];
