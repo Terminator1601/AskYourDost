@@ -1,22 +1,17 @@
-"use client";
 
+"use client";
+// Header.js
 import React, { useState } from "react";
-import SearchResults from "../SearchBox/SearchResults"; // Import the SearchResults component
+import { data } from "@/app/MainData"; // Import the data constant
+import "tailwindcss/tailwind.css";
 
 interface DataItem {
   id: number;
   title: string;
-  // Add other properties as needed
 }
 
 const Header = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
-  const [data, setData] = useState<DataItem[]>([
-    { id: 1, title: "Some title 1" },
-    { id: 2, title: "Some title 2" },
-    { id: 3, title: "Another title 3" },
-    // Add more data items as needed
-  ]);
   const [filteredData, setFilteredData] = useState<DataItem[]>(data);
 
   const handleSearchSubmit = (event: React.FormEvent) => {
@@ -74,6 +69,7 @@ const Header = () => {
         Login/Signup
       </div>
     </div>
+    // </div>
   );
 };
 
