@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import SearchResults from "./SearchBox/SearchResults"; // Import the SearchResults component
+import SearchResults from "../SearchBox/SearchResults"; // Import the SearchResults component
 
 interface DataItem {
   id: number;
