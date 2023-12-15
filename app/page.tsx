@@ -1,3 +1,4 @@
+// "use client"
 import Header from "@/components/Header/Header";
 import Navbar from "@/components/Navbar/Navbar";
 import PopularSearches from "@/components/PopularSearches/PopularSearches";
@@ -8,11 +9,13 @@ import Image from "next/image";
 import dynamic from "next/dynamic";
 import Footer from "@/components/Footer/Footer";
 import UserData from "@/components/User/UserData";
+import Services from "@/components/Services/Services";
+import Intro from "@/components/Introduction/Intro";
 
 export default function Home() {
   return (
     <>
-      <main className="mx-20 px-16 py-0 bg-white">
+      <main className="sm:mx-20 md:px-16 md:py-0 lg:px-16 lg:py-0  bg-white">
         <Header />
         <hr />
         <Navbar />
@@ -21,6 +24,8 @@ export default function Home() {
         <RecentlyAdded />
         {/* <UserLocationPopup/> */}
         <UserData />
+        <Intro />
+        <Services />
       </main>
       <Footer />
     </>

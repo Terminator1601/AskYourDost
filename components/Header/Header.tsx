@@ -1,9 +1,9 @@
-
 "use client";
 // Header.js
 import React, { useState } from "react";
 import { data } from "@/app/MainData"; // Import the data constant
 import "tailwindcss/tailwind.css";
+import login from "@/components/Login&Signup/login";
 
 interface DataItem {
   id: number;
@@ -62,12 +62,17 @@ const Header = () => {
         {/* Display search results */}
         {/* <SearchResults data={filteredData} /> */}
       </div>
-      <div className="text-center md:text-left px-0 py-6  text-xl md:col-span-2">
-        Free listing
-      </div>
-      <div className="text-center md:text-left px-0 py-6  text-xl md:col-span-2">
-        Login/Signup
-      </div>
+      <a href="">
+        <div className="text-center md:text-left px-0 py-6  text-xl md:col-span-2">
+          Free listing
+        </div>
+      </a>
+      <a href="/api/auth/login">
+        <div className="text-center md:text-left px-0 py-6  text-xl md:col-span-2">
+          Login/Signup
+        </div>
+      </a>
+      {/* <login /> */}
     </div>
     // </div>
   );
