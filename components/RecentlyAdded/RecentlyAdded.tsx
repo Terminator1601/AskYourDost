@@ -6,8 +6,8 @@ import { popularSectionData } from "@/app/MainData";
 const PopularSearches = () => {
   return (
     <>
-      <div>Popular Searches</div>
-      <div className="grid grid-cols-6 text-center">
+      <div>Recently Added</div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 text-center">
         {popularSectionData.map((item, index) => (
           <a href="/" key={index}>
             <div className="px-3">
