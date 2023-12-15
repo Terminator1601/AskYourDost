@@ -62,7 +62,7 @@ const Header = () => {
         {/* Display search results */}
         {/* <SearchResults data={filteredData} /> */}
       </div>
-      <a href="">
+      <a href="/freeListing">
         <div className="text-center md:text-left px-0 py-6  text-xl md:col-span-2">
           Free listing
         </div>
