@@ -12,6 +12,13 @@ interface FormData {
   services: string;
 }
 
+interface InputField {
+  name: string;
+  label: string;
+  type: string;
+  rows?: number;
+}
+
 const FreeListingForm: React.FC = () => {
   const [formData, setFormData] = useState<FormData>({
     name: "",
@@ -40,7 +47,7 @@ const FreeListingForm: React.FC = () => {
     console.log(formData);
   };
 
-  const inputFields = [
+  const inputFields: InputField[] = [
     { name: "name", label: "Name", type: "text" },
     { name: "email", label: "Business Email", type: "email" },
     { name: "phone", label: "Phone Number", type: "tel" },
@@ -51,52 +58,62 @@ const FreeListingForm: React.FC = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center">
-      <form
-        onSubmit={handleSubmit}
-        className="max-w-md p-8 bg-white shadow-md rounded-md"
-      >
-        <h2 className="text-2xl font-semibold mb-4">User Information</h2>
+      <div className="max-w-screen-xl flex">
+        {/* Left Side (Image) */}
+        <div className="flex-shrink-0 p-4">
+          <img
+            src={formData.shopImage || "https://placehold.it/150x150"}
+            alt="Shop"
+            className="rounded-md"
+            style={{ width: "150px", height: "150px" }}
+          />
+        </div>
 
-        {inputFields.map((field) => (
-          <div key={field.name} className="mb-4">
-            <label
-              htmlFor={field.name}
-              className="block text-sm font-medium text-gray-600"
-            >
-              {field.label}
-            </label>
-            {field.type === "textarea" ? (
-              <textarea
-                id={field.name}
-                name={field.name}
-                value={formData[field.name]}
-                onChange={handleTextareaChange}
-                rows={field.rows}
-                className="mt-1 p-2 w-full border rounded-md"
-                required
-              ></textarea>
-            ) : (
-              <input
-                type={field.type}
-                id={field.name}
-                name={field.name}
-                value={formData[field.name]}
-                onChange={handleChange}
-                className="mt-1 p-2 w-full border rounded-md"
-                required
-              />
-            )}
-          </div>
-        ))}
+        {/* Right Side (Form) */}
+        <div className="flex-grow p-8 bg-white shadow-md rounded-md">
+          <h2 className="text-2xl font-semibold mb-4">User Information</h2>
 
-        {/* Submit Button */}
-        <button
-          type="submit"
-          className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600"
-        >
-          Submit
-        </button>
-      </form>
+          {inputFields.map((field) => (
+            <div key={field.name} className="mb-4">
+              <label
+                htmlFor={field.name}
+                className="block text-sm font-medium text-gray-600"
+              >
+                {field.label}
+              </label>
+              {field.type === "textarea" ? (
+                <textarea
+                  id={field.name}
+                  name={field.name}
+                  value={formData[field.name]}
+                  onChange={handleTextareaChange}
+                  rows={field.rows}
+                  className="mt-1 p-2 w-full border rounded-md"
+                  required
+                />
+              ) : (
+                <input
+                  type={field.type}
+                  id={field.name}
+                  name={field.name}
+                  value={formData[field.name]}
+                  onChange={handleChange}
+                  className="mt-1 p-2 w-full border rounded-md"
+                  required
+                />
+              )}
+            </div>
+          ))}
+
+          {/* Submit Button */}
+          <button
+            type="submit"
+            className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600"
+          >
+            Submit
+          </button>
+        </div>
+      </div>
     </div>
   );
 };
