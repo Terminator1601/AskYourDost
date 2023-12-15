@@ -10,6 +10,7 @@ interface DataItem {
   title: string;
 }
 
+
 const Header = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [filteredData, setFilteredData] = useState<DataItem[]>(data);

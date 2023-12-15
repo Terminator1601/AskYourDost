@@ -3,6 +3,9 @@ import Navbar from "@/components/Navbar/Navbar";
 import FloatingWidgets from "@/components/floatingWidget/FloatingWidget";
 import Footer from "@/components/Footer/Footer";
 import Services from "@/components/Services/Services";
+import "tailwindcss/tailwind.css";
+import "@/app/globals.css";
+import FreeListingForm from "@/components/FreeListingForm/FreeListingForm";
 
 const index = () => {
   return (
@@ -12,8 +15,8 @@ const index = () => {
         <hr />
         <Navbar />
         <FloatingWidgets />
-
         <Services />
+        <FreeListingForm/>
       </main>
       <Footer />
     </>
