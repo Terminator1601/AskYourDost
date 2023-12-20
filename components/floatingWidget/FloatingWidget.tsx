@@ -6,12 +6,12 @@ import "./FloatingWidgets.css"; // Import the CSS file for styling
 const FloatingWidgets = () => {
   return (
     <div className="floating-widgets">
-      <a href="/">
+      <a href="/freeListing">
         <div className="widget" style={{ backgroundColor: "var(--orange)" }}>
           Free Listing
         </div>
       </a>
-      <a href="/">
+      <a href="/ContactUs">
         <div className="widget" style={{ backgroundColor: "var(--green)" }}>
           Contact Us
         </div>
