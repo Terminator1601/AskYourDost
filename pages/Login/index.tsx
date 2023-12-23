@@ -5,10 +5,12 @@ import Footer from "@/components/Footer/Footer";
 import "tailwindcss/tailwind.css";
 import "@/app/globals.css";
 import SignIn from "@/components/Login&Signup/SignIn";
+import { UserProvider } from "@/database/User/UserContext";
+
 
 const index = () => {
   return (
-    <>
+    <UserProvider>
       <main className="sm:mx-20 md:px-16 md:py-0 lg:px-16 lg:py-0  bg-white">
         <Header />
         <hr />
@@ -17,7 +19,7 @@ const index = () => {
         <SignIn/>
       </main>
       <Footer />
-    </>
+    </UserProvider>
   );
 };
 

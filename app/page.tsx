@@ -8,7 +8,6 @@ import UserLocationPopup from "@/components/UserLocationPopup/UserLocationPopup"
 import Image from "next/image";
 import dynamic from "next/dynamic";
 import Footer from "@/components/Footer/Footer";
-import UserData from "@/components/User/UserData";
 import Services from "@/components/Services/Services";
 import Intro from "@/components/Introduction/Intro";
 
@@ -23,7 +22,7 @@ export default function Home() {
         <PopularSearches />
         <RecentlyAdded />
         {/* <UserLocationPopup/> */}
-        <UserData />
+        {/* <UserData /> */}
         <Intro />
         <Services />
       </main>

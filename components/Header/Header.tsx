@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { data } from "@/app/MainData"; // Import the data constant
 import "tailwindcss/tailwind.css";
 import login from "@/components/Login&Signup/SignIn";
+import { useUser } from "@/database//User/UserContext";
 
 interface DataItem {
   id: number;
@@ -30,6 +31,9 @@ const Header = () => {
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
   };
+
+  const { username, email, phone, updateUser } = useUser();
+
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-5 px-0 lg:flex lg:flex-row lg:justify-between">
@@ -74,6 +78,11 @@ const Header = () => {
         </div>
       </a>
       {/* <login /> */}
+      <div>
+      <p>Username: {username}</p>
+      <p>Email: {email}</p>
+      <p>Phone: {phone}</p>
+    </div>
     </div>
     // </div>
   );
