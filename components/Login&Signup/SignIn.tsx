@@ -16,6 +16,7 @@ const SignIn: React.FC = () => {
     password: "",
     captcha: "",
     enteredCaptcha: "",
+    status: "offline",
   });
 
   const generateCaptcha = () => {
@@ -39,7 +40,9 @@ const SignIn: React.FC = () => {
 
   const handleSuccessfulLogin = () => {
     setIsLoggedIn(true);
+    setFormData((prevData) => ({ ...prevData, status: "online" })); // Update status to "online"
   };
+  
 
   const checkUniqueEmail = async (email: string) => {
     const emailQuery = query(collection(db, "userData"), where("email", "==", email));
@@ -121,7 +124,9 @@ const SignIn: React.FC = () => {
           email: formData.email,
           phone: formData.phone,
           password: formData.password,
+          status: "online", // Set the initial status to "online" during registration
         });
+        
   
         console.log("Registration successful!");
         window.alert("Registration successful!");
