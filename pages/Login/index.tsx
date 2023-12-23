@@ -1,14 +1,24 @@
-import Header from '@/components/Header/Header'
-import SignIn from '@/components/Login&Signup/SignIn'
-import React from 'react'
+import Header from "@/components/Header/Header";
+import Navbar from "@/components/Navbar/Navbar";
+import FloatingWidgets from "@/components/floatingWidget/FloatingWidget";
+import Footer from "@/components/Footer/Footer";
+import "tailwindcss/tailwind.css";
+import "@/app/globals.css";
+import SignIn from "@/components/Login&Signup/SignIn";
 
 const index = () => {
   return (
     <>
-    <Header/>
-    <SignIn/>
+      <main className="sm:mx-20 md:px-16 md:py-0 lg:px-16 lg:py-0  bg-white">
+        <Header />
+        <hr />
+        <Navbar />
+        <FloatingWidgets />
+        <SignIn/>
+      </main>
+      <Footer />
     </>
-  )
-}
+  );
+};
 
-export default index
+export default index;

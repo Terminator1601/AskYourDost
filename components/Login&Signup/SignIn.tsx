@@ -1,12 +1,14 @@
 
+
+
+
+
 "use client"
-
-
 // SignIn.tsx
 import React, { useState } from 'react';
 import { auth, db } from "@/database/firebaseConfig";
-import { createUserWithEmailAndPassword, fetchSignInMethodsForEmail, signInWithEmailAndPassword } from 'firebase/auth';
-import { doc, setDoc, collection } from 'firebase/firestore';
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
+import { doc, collection, setDoc } from 'firebase/firestore';
 
 const SignIn: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -16,7 +18,8 @@ const SignIn: React.FC = () => {
     password: '',
   });
 
-  // Update form data on input change
+  const [isLoginMode, setIsLoginMode] = useState(false);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...formData,
@@ -24,85 +27,71 @@ const SignIn: React.FC = () => {
     });
   };
 
-  // Handle user registration
-  const handleRegister = async () => {
+  const handleSubmit = async () => {
     try {
-      // Check if email is already in use
-      const existingUser = await fetchSignInMethodsForEmail(auth, formData.email);
-      if (existingUser.length > 0) {
-        // Display a popup or alert
-        window.alert('Email is already in use. Please use a different email or log in.');
-        return;
+      if (isLoginMode) {
+        const userCredential = await signInWithEmailAndPassword(auth, formData.email, formData.password);
+        console.log('Login successful!', userCredential);
+      } else {
+        const existingUser = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
+        const userId = existingUser.user?.uid;
+
+        const userDataRef = collection(db, 'userData');
+        const userDocRef = doc(userDataRef, userId);
+
+        await setDoc(userDocRef, {
+          username: formData.username,
+          email: formData.email,
+          phone: formData.phone,
+          password: formData.password,
+        });
+
+        console.log('Registration successful!');
+        window.alert('Registration successful!');
       }
-
-      // Continue with user registration
-      const userCredential = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
-      const userId = userCredential.user?.uid;
-
-      // Add user details to Firestore in the 'userData' collection
-      const userDataRef = collection(db, 'userData');
-      const userDocRef = doc(userDataRef, userId);
-
-      await setDoc(userDocRef, {
-        username: formData.username,
-        email: formData.email,
-        phone: formData.phone,
-        // You might want to avoid storing passwords in plain text for security reasons
-        password: formData.password,
-      });
-
-      // Log success and display a popup
-      console.log('Registration successful!');
-      window.alert('Registration successful!');
     } catch (error: any) {
-      // Log the error and display a popup with the error message
-      console.error('Error during registration:', error);
-      window.alert(`Error during registration: ${error.message}`);
+      console.error(`Error during ${isLoginMode ? 'login' : 'registration'}:`, error);
+      window.alert(`Error during ${isLoginMode ? 'login' : 'registration'}: ${error.message}`);
     }
   };
 
-  // Handle user login
-  const handleLogin = async () => {
-    try {
-      const userCredential = await signInWithEmailAndPassword(auth, formData.email, formData.password);
-      console.log('Login successful!', userCredential);
-      // Optionally, you can redirect to the dashboard or home page
-      // Example: history.push('/dashboard');
-    } catch (error: any) {
-      console.error('Error during login:', error);
-      window.alert(`Error during login: ${error.message}`);
-    }
+  const toggleMode = () => {
+    setIsLoginMode((prevMode) => !prevMode);
   };
 
   return (
     <div className="max-w-md mx-auto mt-8 p-4 bg-white rounded-md shadow-md">
-      <h2 className="text-2xl font-semibold mb-4">Registration & Login Form</h2>
-      <label className="block mb-2">
-        Username:
-        <input
-          type="text"
-          name="username"
-          value={formData.username}
-          onChange={handleChange}
-          className="block w-full mt-1 p-2 border rounded-md"
-        />
-      </label>
+      <h2 className="text-2xl font-semibold mb-4">{isLoginMode ? 'Login' : 'Registration'} Form</h2>
+      {!isLoginMode && (
+        <>
+          <label className="block mb-2">
+            Username:
+            <input
+              type="text"
+              name="username"
+              value={formData.username}
+              onChange={handleChange}
+              className="block w-full mt-1 p-2 border rounded-md"
+            />
+          </label>
+          <label className="block mb-2">
+            Phone:
+            <input
+              type="tel"
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+              className="block w-full mt-1 p-2 border rounded-md"
+            />
+          </label>
+        </>
+      )}
       <label className="block mb-2">
         Email:
         <input
           type="email"
           name="email"
           value={formData.email}
-          onChange={handleChange}
-          className="block w-full mt-1 p-2 border rounded-md"
-        />
-      </label>
-      <label className="block mb-2">
-        Phone:
-        <input
-          type="tel"
-          name="phone"
-          value={formData.phone}
           onChange={handleChange}
           className="block w-full mt-1 p-2 border rounded-md"
         />
@@ -119,18 +108,22 @@ const SignIn: React.FC = () => {
       </label>
       <div className="flex space-x-4">
         <button
-          onClick={handleRegister}
-          className="flex-1 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+          onClick={handleSubmit}
+          className={`flex-1 ${
+            isLoginMode ? 'bg-green-500' : 'bg-blue-500'
+          } text-white px-4 py-2 rounded-md hover:${
+            isLoginMode ? 'bg-green-600' : 'bg-blue-600'
+          }`}
         >
-          Register
-        </button>
-        <button
-          onClick={handleLogin}
-          className="flex-1 bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600"
-        >
-          Login
+          {isLoginMode ? 'Login' : 'Register'}
         </button>
       </div>
+      <p className="mt-2">
+        {isLoginMode ? 'New user? ' : 'Already have an account? '}
+        <button onClick={toggleMode} className="text-blue-500 hover:underline focus:outline-none">
+          {isLoginMode ? 'Register here' : 'Login here'}
+        </button>
+      </p>
     </div>
   );
 };
