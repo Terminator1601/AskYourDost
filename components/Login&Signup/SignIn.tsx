@@ -8,6 +8,7 @@ import {
   createUserWithEmailAndPassword,
 } from "firebase/auth";
 import { doc, collection, setDoc } from "firebase/firestore";
+import crypto from "crypto";
 
 const SignIn: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -15,7 +16,18 @@ const SignIn: React.FC = () => {
     email: "",
     phone: "",
     password: "",
+    captcha: "",
+    enteredCaptcha: "",
   });
+
+  const generateCaptcha = () => {
+    const captcha = crypto.randomBytes(3).toString("hex"); // Generate a n-character random string
+    setFormData({ ...formData, captcha, enteredCaptcha: "" });
+  };
+
+  const handleRefreshCaptcha = () => {
+    generateCaptcha(); // Regenerate captcha when the button is clicked
+  };
 
   const [isLoginMode, setIsLoginMode] = useState(false);
 
@@ -28,6 +40,9 @@ const SignIn: React.FC = () => {
 
   const handleSubmit = async () => {
     try {
+      if (formData.captcha !== formData.enteredCaptcha) {
+        throw new Error("Invalid captcha");
+      }
       if (isLoginMode) {
         // Check if the user exists with the provided email
         const userQuery = query(
@@ -83,12 +98,20 @@ const SignIn: React.FC = () => {
           error.message
         }`
       );
+    } finally {
+      generateCaptcha(); // Regenerate captcha after each attempt
     }
   };
 
   const toggleMode = () => {
     setIsLoginMode((prevMode) => !prevMode);
+    generateCaptcha(); // Regenerate captcha when toggling mode
   };
+
+  // Initial captcha generation when component mounts
+  React.useEffect(() => {
+    generateCaptcha();
+  }, []);
 
   return (
     <div className="max-w-md mx-auto mt-8 p-4 bg-white rounded-md shadow-md">
@@ -139,6 +162,16 @@ const SignIn: React.FC = () => {
           className="block w-full mt-1 p-2 border rounded-md"
         />
       </label>
+      <label className="block mb-2">
+        Captcha: {formData.captcha}
+        <input
+          type="text"
+          name="enteredCaptcha"
+          value={formData.enteredCaptcha}
+          onChange={handleChange}
+          className="block w-full mt-1 p-2 border rounded-md"
+        />
+      </label>
       <div className="flex space-x-4">
         <button
           onClick={handleSubmit}
@@ -149,6 +182,12 @@ const SignIn: React.FC = () => {
           }`}
         >
           {isLoginMode ? "Login" : "Register"}
+        </button>
+        <button
+          onClick={handleRefreshCaptcha}
+          className="bg-gray-300 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-400"
+        >
+          Refresh Captcha
         </button>
       </div>
       <p className="mt-2">
