@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { data } from "@/app/MainData"; // Import the data constant
 import "tailwindcss/tailwind.css";
-import login from "@/components/Login&Signup/login";
+import login from "@/components/Login&Signup/SignIn";
 
 interface DataItem {
   id: number;
@@ -68,7 +68,7 @@ const Header = () => {
           Free listing
         </div>
       </a>
-      <a href="/api/auth/login">
+      <a href="/Login">
         <div className="text-center md:text-left px-0 py-6  text-xl md:col-span-2">
           Login/Signup
         </div>
