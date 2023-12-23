@@ -41,15 +41,41 @@ const SignIn: React.FC = () => {
     setIsLoggedIn(true);
   };
 
+  const checkUniqueEmail = async (email: string) => {
+    const emailQuery = query(collection(db, "userData"), where("email", "==", email));
+    const emailSnapshot = await getDocs(emailQuery);
+    return emailSnapshot.empty;
+  };
+
+  const checkUniqueUsername = async (username: string) => {
+    const usernameQuery = query(collection(db, "userData"), where("username", "==", username));
+    const usernameSnapshot = await getDocs(usernameQuery);
+    return usernameSnapshot.empty;
+  };
+
   const handleSubmit = async () => {
     try {
       if (formData.captcha !== formData.enteredCaptcha) {
         throw new Error("Invalid captcha");
       }
+
+      const isUniqueEmail = await checkUniqueEmail(formData.email);
+      if (!isUniqueEmail) {
+        throw new Error("Email already exists");
+      }
+
+      // Check for unique username (if applicable)
+      if (!isLoginMode) {
+        const isUniqueUsername = await checkUniqueUsername(formData.username);
+        if (!isUniqueUsername) {
+          throw new Error("Username already exists");
+        }
+      }
+
       if (isLoginMode) {
         // Check if the user exists with the provided email
         const userQuery = query(
-          collection(db, "userData"),
+          collection(db, "AYD_userData"),
           where("email", "==", formData.email)
         );
         const userSnapshot = await getDocs(userQuery);
@@ -121,8 +147,11 @@ const SignIn: React.FC = () => {
     <div className="max-w-md mx-auto mt-8 p-4 bg-white rounded-md shadow-md">
       {isLoggedIn ? (
         <>
-          <p className="text-xl font-semibold mb-4">Welcome! You are logged in.</p>
-          <button 
+          <p className="text-xl font-semibold mb-4">
+            Welcome! You are logged in.
+          </p>
+          <button
+            onClick={() => (window.location.href = "/")}
             className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
             // Add an onClick event to navigate to the home page or handle it according to your routing setup
           >
