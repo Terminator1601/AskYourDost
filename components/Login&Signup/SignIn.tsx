@@ -1,5 +1,3 @@
-"use client";
-// SignIn.tsx
 import { getDocs, query, where } from "firebase/firestore";
 import React, { useState } from "react";
 import { auth, db } from "@/database/firebaseConfig";
@@ -30,12 +28,17 @@ const SignIn: React.FC = () => {
   };
 
   const [isLoginMode, setIsLoginMode] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
+  };
+
+  const handleSuccessfulLogin = () => {
+    setIsLoggedIn(true);
   };
 
   const handleSubmit = async () => {
@@ -63,6 +66,7 @@ const SignIn: React.FC = () => {
 
         console.log("Login successful!");
         window.alert("Login successful!");
+        handleSuccessfulLogin();
 
         // Redirect to the home page after showing the popup
         // Replace the following line with the actual code to navigate to the home page
@@ -115,90 +119,104 @@ const SignIn: React.FC = () => {
 
   return (
     <div className="max-w-md mx-auto mt-8 p-4 bg-white rounded-md shadow-md">
-      <h2 className="text-2xl font-semibold mb-4">
-        {isLoginMode ? "Login" : "Registration"} Form
-      </h2>
-      {!isLoginMode && (
+      {isLoggedIn ? (
         <>
+          <p className="text-xl font-semibold mb-4">Welcome! You are logged in.</p>
+          <button 
+            className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+            // Add an onClick event to navigate to the home page or handle it according to your routing setup
+          >
+            Go to Home Page
+          </button>
+        </>
+      ) : (
+        <>
+          <h2 className="text-2xl font-semibold mb-4">
+            {isLoginMode ? "Login" : "Registration"} Form
+          </h2>
+          {!isLoginMode && (
+            <>
+              <label className="block mb-2">
+                Username:
+                <input
+                  type="text"
+                  name="username"
+                  value={formData.username}
+                  onChange={handleChange}
+                  className="block w-full mt-1 p-2 border rounded-md"
+                />
+              </label>
+              <label className="block mb-2">
+                Phone:
+                <input
+                  type="tel"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  className="block w-full mt-1 p-2 border rounded-md"
+                />
+              </label>
+            </>
+          )}
           <label className="block mb-2">
-            Username:
+            Email:
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              className="block w-full mt-1 p-2 border rounded-md"
+            />
+          </label>
+          <label className="block mb-2">
+            Password:
+            <input
+              type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              className="block w-full mt-1 p-2 border rounded-md"
+            />
+          </label>
+          <label className="block mb-2">
+            Captcha: {formData.captcha}
             <input
               type="text"
-              name="username"
-              value={formData.username}
+              name="enteredCaptcha"
+              value={formData.enteredCaptcha}
               onChange={handleChange}
               className="block w-full mt-1 p-2 border rounded-md"
             />
           </label>
-          <label className="block mb-2">
-            Phone:
-            <input
-              type="tel"
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-              className="block w-full mt-1 p-2 border rounded-md"
-            />
-          </label>
+          <div className="flex space-x-4">
+            <button
+              onClick={handleSubmit}
+              className={`flex-1 ${
+                isLoginMode ? "bg-green-500" : "bg-blue-500"
+              } text-white px-4 py-2 rounded-md hover:${
+                isLoginMode ? "bg-green-600" : "bg-blue-600"
+              }`}
+            >
+              {isLoginMode ? "Login" : "Register"}
+            </button>
+            <button
+              onClick={handleRefreshCaptcha}
+              className="bg-gray-300 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-400"
+            >
+              Refresh Captcha
+            </button>
+          </div>
+          <p className="mt-2">
+            {isLoginMode ? "New user? " : "Already have an account? "}
+            <button
+              onClick={toggleMode}
+              className="text-blue-500 hover:underline focus:outline-none"
+            >
+              {isLoginMode ? "Register here" : "Login here"}
+            </button>
+          </p>
         </>
       )}
-      <label className="block mb-2">
-        Email:
-        <input
-          type="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          className="block w-full mt-1 p-2 border rounded-md"
-        />
-      </label>
-      <label className="block mb-2">
-        Password:
-        <input
-          type="password"
-          name="password"
-          value={formData.password}
-          onChange={handleChange}
-          className="block w-full mt-1 p-2 border rounded-md"
-        />
-      </label>
-      <label className="block mb-2">
-        Captcha: {formData.captcha}
-        <input
-          type="text"
-          name="enteredCaptcha"
-          value={formData.enteredCaptcha}
-          onChange={handleChange}
-          className="block w-full mt-1 p-2 border rounded-md"
-        />
-      </label>
-      <div className="flex space-x-4">
-        <button
-          onClick={handleSubmit}
-          className={`flex-1 ${
-            isLoginMode ? "bg-green-500" : "bg-blue-500"
-          } text-white px-4 py-2 rounded-md hover:${
-            isLoginMode ? "bg-green-600" : "bg-blue-600"
-          }`}
-        >
-          {isLoginMode ? "Login" : "Register"}
-        </button>
-        <button
-          onClick={handleRefreshCaptcha}
-          className="bg-gray-300 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-400"
-        >
-          Refresh Captcha
-        </button>
-      </div>
-      <p className="mt-2">
-        {isLoginMode ? "New user? " : "Already have an account? "}
-        <button
-          onClick={toggleMode}
-          className="text-blue-500 hover:underline focus:outline-none"
-        >
-          {isLoginMode ? "Register here" : "Login here"}
-        </button>
-      </p>
     </div>
   );
 };
