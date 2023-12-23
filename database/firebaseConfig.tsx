@@ -8,8 +8,8 @@ const firebaseConfig = {
   projectId: "askyourdost-db6cd",
   storageBucket: "askyourdost-db6cd.appspot.com",
   messagingSenderId: "572079202185",
-  appId: "1:572079202185:web:761db779fa6edeffca4b58",
-  measurementId: "G-5WQMPQL0WV",
+  appId: "1:572079202185:web:8f360ebb0d73a6b7ca4b58",
+  measurementId: "G-5X8W2SKBWT"
 };
 
 // Initialize Firebase

@@ -58,63 +58,71 @@ const SignIn: React.FC = () => {
       if (formData.captcha !== formData.enteredCaptcha) {
         throw new Error("Invalid captcha");
       }
-
-      const isUniqueEmail = await checkUniqueEmail(formData.email);
-      if (!isUniqueEmail) {
-        throw new Error("Email already exists");
-      }
-
-      // Check for unique username (if applicable)
+  
+      // Check for unique username and email (if applicable)
       if (!isLoginMode) {
         const isUniqueUsername = await checkUniqueUsername(formData.username);
         if (!isUniqueUsername) {
-          throw new Error("Username already exists");
+          throw new Error("Username already exists. Please choose a different username or log in.");
+        }
+  
+        const isUniqueEmail = await checkUniqueEmail(formData.email);
+        if (!isUniqueEmail) {
+          throw new Error("Email already exists. Please log in.");
         }
       }
-
+  
       if (isLoginMode) {
         // Check if the user exists with the provided email
         const userQuery = query(
-          collection(db, "AYD_userData"),
+          collection(db, "userData"),
           where("email", "==", formData.email)
         );
         const userSnapshot = await getDocs(userQuery);
-
+  
         if (userSnapshot.empty) {
           throw new Error("Invalid email or password");
         }
-
+  
         // Check if the password matches
         const userData = userSnapshot.docs[0].data();
         if (userData.password !== formData.password) {
           throw new Error("Invalid email or password");
         }
-
+  
         console.log("Login successful!");
         window.alert("Login successful!");
         handleSuccessfulLogin();
-
+  
         // Redirect to the home page after showing the popup
         // Replace the following line with the actual code to navigate to the home page
         // For example, you can use React Router: history.push("/home");
       } else {
+        // Registration logic
+        const existingUsername = await checkUniqueUsername(formData.username);
+        const existingEmail = await checkUniqueEmail(formData.email);
+  
+        if (!existingUsername && !existingEmail) {
+          throw new Error("Username and Email already exist. Please log in.");
+        }
+  
         const existingUser = await createUserWithEmailAndPassword(
           auth,
           formData.email,
           formData.password
         );
         const userId = existingUser.user?.uid;
-
+  
         const userDataRef = collection(db, "userData");
         const userDocRef = doc(userDataRef, userId);
-
+  
         await setDoc(userDocRef, {
           username: formData.username,
           email: formData.email,
           phone: formData.phone,
           password: formData.password,
         });
-
+  
         console.log("Registration successful!");
         window.alert("Registration successful!");
       }
@@ -132,6 +140,7 @@ const SignIn: React.FC = () => {
       generateCaptcha(); // Regenerate captcha after each attempt
     }
   };
+  
 
   const toggleMode = () => {
     setIsLoginMode((prevMode) => !prevMode);
