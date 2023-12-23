@@ -1,21 +1,20 @@
-
-
-
-
-
-"use client"
+"use client";
 // SignIn.tsx
-import React, { useState } from 'react';
+import { getDocs, query, where } from "firebase/firestore";
+import React, { useState } from "react";
 import { auth, db } from "@/database/firebaseConfig";
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
-import { doc, collection, setDoc } from 'firebase/firestore';
+import {
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+} from "firebase/auth";
+import { doc, collection, setDoc } from "firebase/firestore";
 
 const SignIn: React.FC = () => {
   const [formData, setFormData] = useState({
-    username: '',
-    email: '',
-    phone: '',
-    password: '',
+    username: "",
+    email: "",
+    phone: "",
+    password: "",
   });
 
   const [isLoginMode, setIsLoginMode] = useState(false);
@@ -30,13 +29,38 @@ const SignIn: React.FC = () => {
   const handleSubmit = async () => {
     try {
       if (isLoginMode) {
-        const userCredential = await signInWithEmailAndPassword(auth, formData.email, formData.password);
-        console.log('Login successful!', userCredential);
+        // Check if the user exists with the provided email
+        const userQuery = query(
+          collection(db, "userData"),
+          where("email", "==", formData.email)
+        );
+        const userSnapshot = await getDocs(userQuery);
+
+        if (userSnapshot.empty) {
+          throw new Error("Invalid email or password");
+        }
+
+        // Check if the password matches
+        const userData = userSnapshot.docs[0].data();
+        if (userData.password !== formData.password) {
+          throw new Error("Invalid email or password");
+        }
+
+        console.log("Login successful!");
+        window.alert("Login successful!");
+
+        // Redirect to the home page after showing the popup
+        // Replace the following line with the actual code to navigate to the home page
+        // For example, you can use React Router: history.push("/home");
       } else {
-        const existingUser = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
+        const existingUser = await createUserWithEmailAndPassword(
+          auth,
+          formData.email,
+          formData.password
+        );
         const userId = existingUser.user?.uid;
 
-        const userDataRef = collection(db, 'userData');
+        const userDataRef = collection(db, "userData");
         const userDocRef = doc(userDataRef, userId);
 
         await setDoc(userDocRef, {
@@ -46,12 +70,19 @@ const SignIn: React.FC = () => {
           password: formData.password,
         });
 
-        console.log('Registration successful!');
-        window.alert('Registration successful!');
+        console.log("Registration successful!");
+        window.alert("Registration successful!");
       }
     } catch (error: any) {
-      console.error(`Error during ${isLoginMode ? 'login' : 'registration'}:`, error);
-      window.alert(`Error during ${isLoginMode ? 'login' : 'registration'}: ${error.message}`);
+      console.error(
+        `Error during ${isLoginMode ? "login" : "registration"}:`,
+        error
+      );
+      window.alert(
+        `Error during ${isLoginMode ? "login" : "registration"}: ${
+          error.message
+        }`
+      );
     }
   };
 
@@ -61,7 +92,9 @@ const SignIn: React.FC = () => {
 
   return (
     <div className="max-w-md mx-auto mt-8 p-4 bg-white rounded-md shadow-md">
-      <h2 className="text-2xl font-semibold mb-4">{isLoginMode ? 'Login' : 'Registration'} Form</h2>
+      <h2 className="text-2xl font-semibold mb-4">
+        {isLoginMode ? "Login" : "Registration"} Form
+      </h2>
       {!isLoginMode && (
         <>
           <label className="block mb-2">
@@ -110,18 +143,21 @@ const SignIn: React.FC = () => {
         <button
           onClick={handleSubmit}
           className={`flex-1 ${
-            isLoginMode ? 'bg-green-500' : 'bg-blue-500'
+            isLoginMode ? "bg-green-500" : "bg-blue-500"
           } text-white px-4 py-2 rounded-md hover:${
-            isLoginMode ? 'bg-green-600' : 'bg-blue-600'
+            isLoginMode ? "bg-green-600" : "bg-blue-600"
           }`}
         >
-          {isLoginMode ? 'Login' : 'Register'}
+          {isLoginMode ? "Login" : "Register"}
         </button>
       </div>
       <p className="mt-2">
-        {isLoginMode ? 'New user? ' : 'Already have an account? '}
-        <button onClick={toggleMode} className="text-blue-500 hover:underline focus:outline-none">
-          {isLoginMode ? 'Register here' : 'Login here'}
+        {isLoginMode ? "New user? " : "Already have an account? "}
+        <button
+          onClick={toggleMode}
+          className="text-blue-500 hover:underline focus:outline-none"
+        >
+          {isLoginMode ? "Register here" : "Login here"}
         </button>
       </p>
     </div>
