@@ -6,6 +6,7 @@ import "tailwindcss/tailwind.css";
 import "@/app/globals.css";
 import SignIn from "@/components/Login&Signup/SignIn";
 import { UserProvider } from "@/database/User/UserContext";
+import SearchPage from "@/components/SearchBox/SearchPage";
 
 
 const index = () => {
@@ -18,6 +19,7 @@ const index = () => {
         <FloatingWidgets />
         <SignIn/>
       </main>
+      <SearchPage/>
       <Footer />
     </UserProvider>
   );
