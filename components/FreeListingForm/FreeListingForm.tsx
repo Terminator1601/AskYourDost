@@ -1,7 +1,8 @@
 "use client";
 
-// App.tsx
-import React, { useState, ChangeEvent, FormEvent } from "react";
+import { useState, ChangeEvent, FormEvent } from "react";
+import { getFirestore, collection, addDoc } from "firebase/firestore";
+import  "@/database/firebaseConfig"; // Import your Firebase configuration
 
 interface FormData {
   name: string;
@@ -29,24 +30,59 @@ const FreeListingForm: React.FC = () => {
     services: "",
   });
 
+  const [showSuccessPopup, setShowSuccessPopup] = useState<boolean>(false);
+  const [showErrorPopup, setShowErrorPopup] = useState<boolean>(false);
+
   const handleChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: ChangeEvent<
+      HTMLInputElement | (HTMLTextAreaElement & { name: keyof FormData })
+    >
   ) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  const handleTextareaChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+  const handleTextareaChange = (
+    e: ChangeEvent<HTMLTextAreaElement & { name: keyof FormData }>
+  ) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    // Add your logic to handle form submission, e.g., sending data to a server
-    console.log(formData);
+
+    // Store data in Firestore
+    const firestore = getFirestore();
+    try {
+      const docRef = await addDoc(collection(firestore, 'FreeListing'), formData);
+      console.log('Document written with ID: ', docRef.id);
+
+      // Show success popup
+      setShowSuccessPopup(true);
+
+      // Show success alert
+      window.alert('Form submitted successfully!');
+    } catch (error) {
+      if (error instanceof Error && error.message) {
+        console.error('Error adding document: ', error.message);
+        // Show error alert
+        window.alert(`Error submitting the form: ${error.message}`);
+      } else {
+        console.error('Unknown error occurred: ', error);
+        // Show generic error alert
+        window.alert('An unknown error occurred. Please try again.');
+      }
+
+      // Show error popup
+      setShowErrorPopup(true);
+    }
   };
 
+  const closePopup = () => {
+    setShowSuccessPopup(false);
+    setShowErrorPopup(false);
+  };
   const inputFields: InputField[] = [
     { name: "name", label: "Name", type: "text" },
     { name: "email", label: "Business Email", type: "email" },
@@ -108,6 +144,7 @@ const FreeListingForm: React.FC = () => {
           {/* Submit Button */}
           <button
             type="submit"
+            onClick={handleSubmit}
             className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600"
           >
             Submit
