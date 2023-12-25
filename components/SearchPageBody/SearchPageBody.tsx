@@ -1,5 +1,7 @@
 import React from "react";
-import FilterSection from "../FilterSection";
+import FilterSection from "../FilterSection/FilterSection";
+import SearchCard from "../Cards/SearchCard";
+import { recentlyAddedData } from "@/app/MainData";
 
 const SearchPageBody = () => {
   return (
@@ -24,6 +26,7 @@ const SearchPageBody = () => {
             similique odio, accusantium laborum aliquid consequuntur vero
             impedit totam.
           </p>
+          <SearchCard />
         </div>
       </div>
     </div>

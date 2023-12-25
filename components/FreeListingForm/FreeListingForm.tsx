@@ -13,6 +13,7 @@ interface FormData {
   address: string;
   shopImage: string;
   services: string;
+  description: string;
 }
 
 interface InputField {
@@ -30,6 +31,7 @@ const FreeListingForm: React.FC = () => {
     address: "",
     shopImage: "",
     services: "",
+    description: "",
   });
 
   const [showSuccessPopup, setShowSuccessPopup] = useState<boolean>(false);
@@ -53,16 +55,26 @@ const FreeListingForm: React.FC = () => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-
+  
+    // Validation: Check if all required fields are filled
+    const requiredFields = ["name", "email", "phone", "address", "shopImage", "services"];
+    const missingFields = requiredFields.filter((field) => !formData[field]);
+  
+    if (missingFields.length > 0) {
+      // Show error alert for missing fields
+      window.alert(`Please fill in all required fields: ${missingFields.join(", ")}`);
+      return; // Do not proceed with the submission
+    }
+  
     // Store data in Firestore
     const firestore = getFirestore();
     try {
       const docRef = await addDoc(collection(firestore, "FreeListing"), formData);
       console.log("Document written with ID: ", docRef.id);
-
+  
       // Show success popup
       setShowSuccessPopup(true);
-
+  
       // Show success alert
       window.alert("Form submitted successfully!");
     } catch (error) {
@@ -75,11 +87,12 @@ const FreeListingForm: React.FC = () => {
         // Show generic error alert
         window.alert("An unknown error occurred. Please try again.");
       }
-
+  
       // Show error popup
       setShowErrorPopup(true);
     }
   };
+  
 
   const closePopup = () => {
     setShowSuccessPopup(false);
@@ -93,9 +106,12 @@ const FreeListingForm: React.FC = () => {
     { name: "address", label: "Address", type: "textarea", rows: 3 },
     { name: "shopImage", label: "Shop Image URL", type: "text" },
     { name: "services", label: "Services", type: "select" },
+    { name: "description", label: "description", type: "text" },
+
+    
   ];
 
-  const servicesOptions = ["Option 1", "Option 2", "Option 3"]; // Add your service options here
+  const servicesOptions = ["Hotels", "Restaurants", "Spa","Gym","Coaching", "Counselling"]; // Add your service options here
 
   return (
     <div className="min-h-screen flex items-center justify-center">

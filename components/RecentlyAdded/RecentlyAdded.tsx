@@ -1,7 +1,7 @@
 // PopularSearches.jsx
 
 import React from "react";
-import Cards from "../PopularSearches/Cards";
+import Cards from "../Cards/HomepageCards";
 import { popularSectionData } from "@/app/MainData";
 const PopularSearches = () => {
   return (
