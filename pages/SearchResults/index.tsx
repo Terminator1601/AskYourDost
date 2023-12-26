@@ -1,3 +1,4 @@
+"use client"
 import React from "react";
 import Header from "@/components/Header/Header";
 import Navbar from "@/components/Navbar/Navbar";
@@ -8,6 +9,7 @@ import "@/app/globals.css";
 import { UserProvider } from "@/database/User/UserContext";
 import SearchHeading from "@/components/SearchBox/SearchHeading";
 import SearchPageBody from "@/components/SearchPageBody/SearchPageBody";
+
 
 const Index = () => {
   return (
