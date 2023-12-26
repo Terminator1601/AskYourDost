@@ -1,14 +1,19 @@
-// "use client"
+
+
 import React from "react";
 import { db } from "@/database/firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
 
-const StatusUpdates = ({ pendingUpdatesCount }) => {
+interface StatusUpdatesProps {
+  pendingUpdatesCount: number;
+}
+
+const StatusUpdates: React.FC<StatusUpdatesProps> = ({ pendingUpdatesCount }) => {
   return (
     <>
       <div>StatusUpdates</div>
       <div className="grid grid-cols-3 text-center">
-        <div>Number of pending Updates : {pendingUpdatesCount}</div>
+        <div>Number of pending Updates: {pendingUpdatesCount}</div>
         <div>hello</div>
         <div>hello</div>
       </div>

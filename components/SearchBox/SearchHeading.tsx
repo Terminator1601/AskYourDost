@@ -1,14 +1,16 @@
-// import React from 'react'
 import "tailwindcss/tailwind.css";
 import React, { useEffect, useState } from "react";
 
 const SearchHeading = () => {
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState<string>(""); // Specify that searchQuery is a string
 
   useEffect(() => {
     // Fetch the search query from the URL on the client side
-    setSearchQuery(new URLSearchParams(window.location.search).get("query"));
+    setSearchQuery(
+      new URLSearchParams(window.location.search).get("query") ?? ""
+    );
   }, []);
+
   return (
     <div className="text-center">Showing search results for {searchQuery}</div>
   );

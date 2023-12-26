@@ -3,11 +3,15 @@ import FilterSection from "../FilterSection/FilterSection";
 import SearchCard from "../Cards/SearchCard";
 
 const SearchPageBody = () => {
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState<string>("");
 
   useEffect(() => {
-    setSearchQuery(new URLSearchParams(window.location.search).get("query"));
+    const queryFromUrl = new URLSearchParams(window.location.search).get(
+      "query"
+    );
+    setSearchQuery(queryFromUrl || ""); // Use the queryFromUrl or an empty string if it's null
   }, []);
+
   return (
     <div>
       <div className="grid grid-cols-3">
@@ -22,7 +26,7 @@ const SearchPageBody = () => {
             ratione minus autem libero nobis commodi ut odit fugiat, eos
             accusantium architecto!
           </p>
-          <SearchCard searchQuery={searchQuery}/>
+          <SearchCard searchQuery={searchQuery} />
         </div>
       </div>
     </div>
@@ -30,4 +34,3 @@ const SearchPageBody = () => {
 };
 
 export default SearchPageBody;
-

@@ -1,10 +1,16 @@
-import React from "react";
 import { UserProvider } from "@/database/User/UserContext";
 import "tailwindcss/tailwind.css";
 import Header from "@/components/Header/Header";
-import StatusUpdates, { getServerSideProps as getStatusUpdatesProps } from "@/components/Admin/StatusUpdates";
+import StatusUpdates, {
+  getServerSideProps as getStatusUpdatesProps,
+} from "@/components/Admin/StatusUpdates";
+import { GetServerSideProps } from "next"; // Import GetServerSideProps
 
-const Index = ({ pendingUpdatesCount }) => {
+interface IndexProps {
+  pendingUpdatesCount: number;
+}
+
+const Index: React.FC<IndexProps> = ({ pendingUpdatesCount }) => {
   return (
     <UserProvider>
       <Header />
@@ -13,8 +19,9 @@ const Index = ({ pendingUpdatesCount }) => {
   );
 };
 
-export const getServerSideProps = async (context) => {
-  const statusUpdatesProps = await getStatusUpdatesProps(context);
+// Explicitly define the type for getServerSideProps using GetServerSideProps
+export const getServerSideProps: GetServerSideProps<IndexProps> = async () => {
+  const statusUpdatesProps = await getStatusUpdatesProps();
   return {
     props: {
       ...statusUpdatesProps.props,

@@ -2,8 +2,21 @@ import React, { useEffect, useState } from "react";
 import { db } from "@/database/firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
 
-const SearchCard = ({ searchQuery }) => {
-  const [freeListings, setFreeListings] = useState([]);
+interface Listing {
+  id: string;
+  name?: string; // Make the 'name' property optional
+  shopImage?: string;
+  description?: string;
+  services?: string;
+  // Add other properties as needed
+}
+
+interface SearchCardProps {
+  searchQuery: string;
+}
+
+const SearchCard: React.FC<SearchCardProps> = ({ searchQuery }) => {
+  const [freeListings, setFreeListings] = useState<Listing[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -13,13 +26,17 @@ const SearchCard = ({ searchQuery }) => {
         const data = snapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
-        }));
+        })) as Listing[]; // Assert that data is an array of Listing
 
         // Filter data based on searchQuery
         const filteredData = data.filter(
           (listing) =>
-            listing.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            listing.services.toLowerCase().includes(searchQuery.toLowerCase())
+            (listing.name &&
+              listing.name.toLowerCase().includes(searchQuery.toLowerCase())) ||
+            (listing.services &&
+              listing.services
+                .toLowerCase()
+                .includes(searchQuery.toLowerCase()))
           // Add additional conditions here if needed
         );
 
@@ -42,7 +59,7 @@ const SearchCard = ({ searchQuery }) => {
             <img src={listing.shopImage} alt={listing.shopImage} />
           </div>
           <div className="grid col-span-3">
-            <h2>{listing.name}</h2>
+            <h2>{listing.name || "No Name Available"}</h2>
             <p>{listing.description}</p>
           </div>
           <div>
