@@ -5,9 +5,9 @@
 // Header.js
 // Header.js
 import React, { useState } from "react";
-import { data } from "@/app/MainData";
+import { data } from "../../app/MainData";
 import "tailwindcss/tailwind.css";
-import { useUser } from "@/database/User/UserContext";
+import { useUser } from "../../database/User/UserContext";
 
 interface DataItem {
   id: number;

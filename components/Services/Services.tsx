@@ -2,7 +2,7 @@
 
 import React from "react";
 import ServicesCard from "./ServicesCard";
-import { ServicesData } from "@/app/MainData";
+import { ServicesData } from "../../app/MainData";
 const PopularSearches = () => {
   return (
     <>

@@ -1,12 +1,12 @@
-import Header from "@/components/Header/Header";
-import Navbar from "@/components/Navbar/Navbar";
-import FloatingWidgets from "@/components/floatingWidget/FloatingWidget";
-import Footer from "@/components/Footer/Footer";
+import Header from "../../components/Header/Header";
+import Navbar from "../../components/Navbar/Navbar";
+import FloatingWidgets from "../../components/floatingWidget/FloatingWidget";
+import Footer from "../../components/Footer/Footer";
 import "tailwindcss/tailwind.css";
-import "@/app/globals.css";
-import SignIn from "@/components/Login&Signup/SignIn";
-import { UserProvider } from "@/database/User/UserContext";
-// import SearchPage from "@/components/SearchBox/SearchPage";
+import "../../app/globals.css";
+import SignIn from "../../components/Login&Signup/SignIn";
+import { UserProvider } from "../../database/User/UserContext";
+// import SearchPage from "../../components/SearchBox/SearchPage";
 
 
 const index = () => {

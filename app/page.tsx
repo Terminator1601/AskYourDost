@@ -1,15 +1,15 @@
 "use client"
-import Header from "@/components/Header/Header";
-import Navbar from "@/components/Navbar/Navbar";
-import PopularSearches from "@/components/PopularSearches/PopularSearches";
-import RecentlyAdded from "@/components/RecentlyAdded/RecentlyAdded";
-import FloatingWidgets from "@/components/floatingWidget/FloatingWidget";
-import UserLocationPopup from "@/components/UserLocationPopup/UserLocationPopup";
+import Header from "../components/Header/Header";
+import Navbar from "../components/Navbar/Navbar";
+import PopularSearches from "../components/PopularSearches/PopularSearches";
+import RecentlyAdded from "../components/RecentlyAdded/RecentlyAdded";
+import FloatingWidgets from "../components/floatingWidget/FloatingWidget";
+import UserLocationPopup from "../components/UserLocationPopup/UserLocationPopup";
 import Image from "next/image";
 import dynamic from "next/dynamic";
-import Footer from "@/components/Footer/Footer";
-import Services from "@/components/Services/Services";
-import Intro from "@/components/Introduction/Intro";
+import Footer from "../components/Footer/Footer";
+import Services from "../components/Services/Services";
+import Intro from "../components/Introduction/Intro";
 import { BrowserRouter, BrowserRouter as Router } from "react-router-dom";
 
 export default function Home() {

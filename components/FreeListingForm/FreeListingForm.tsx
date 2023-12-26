@@ -2,7 +2,7 @@
 
 import { useState, ChangeEvent, FormEvent } from "react";
 import { getFirestore, collection, addDoc } from "firebase/firestore";
-import "@/database/firebaseConfig"; // Import your Firebase configuration
+import "../../database/firebaseConfig"; // Import your Firebase configuration
 
 interface FormData {
   name: string;

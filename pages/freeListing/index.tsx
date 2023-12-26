@@ -1,12 +1,12 @@
-import Header from "@/components/Header/Header";
-import Navbar from "@/components/Navbar/Navbar";
-import FloatingWidgets from "@/components/floatingWidget/FloatingWidget";
-import Footer from "@/components/Footer/Footer";
-import Services from "@/components/Services/Services";
+import Header from "../../components/Header/Header";
+import Navbar from "../../components/Navbar/Navbar";
+import FloatingWidgets from "../../components/floatingWidget/FloatingWidget";
+import Footer from "../../components/Footer/Footer";
+import Services from "../../components/Services/Services";
 import "tailwindcss/tailwind.css";
-import "@/app/globals.css";
-import FreeListingForm from "@/components/FreeListingForm/FreeListingForm";
-import { UserProvider } from "@/database/User/UserContext";
+import "../../app/globals.css";
+import FreeListingForm from "../../components/FreeListingForm/FreeListingForm";
+import { UserProvider } from "../../database/User/UserContext";
 
 const index = () => {
   return (

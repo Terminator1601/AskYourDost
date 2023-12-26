@@ -1,5 +1,5 @@
 import React from "react";
-import { navItems } from "@/app/MainData";
+import { navItems } from "../../app/MainData";
 import Login from "../Login&Signup/SignIn";
 
 interface NavItemProps {

@@ -1,6 +1,6 @@
 import { getDocs, query, where } from "firebase/firestore";
 import React, { useState } from "react";
-import { auth, db } from "@/database/firebaseConfig";
+import { auth, db } from "../../database/firebaseConfig";
 import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,

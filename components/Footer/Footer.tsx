@@ -1,6 +1,6 @@
 // Footer.tsx
 
-import React from 'react';
+import React from "react";
 
 const Footer: React.FC = () => {
   return (

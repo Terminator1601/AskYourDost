@@ -1,6 +1,6 @@
 // SearchCard.js
 import React, { useEffect, useState } from "react";
-import { db } from "@/database/firebaseConfig";
+import { db } from "../../database/firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
 
 // Assuming FreeListing type has 'name', 'shopImage', and 'description' as optional properties

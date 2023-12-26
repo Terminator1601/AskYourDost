@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { db } from "@/database/firebaseConfig";
+import { db } from "../../database/firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
 
 interface Listing {

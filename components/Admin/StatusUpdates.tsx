@@ -1,7 +1,7 @@
 
 
 import React from "react";
-import { db } from "@/database/firebaseConfig";
+import { db } from "../../database/firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
 
 interface StatusUpdatesProps {
