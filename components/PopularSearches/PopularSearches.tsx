@@ -1,36 +1,3 @@
-// // PopularSearches.jsx
-
-// import React from "react";
-// import Cards from "./Cards";
-// import { popularSectionData } from "@/app/MainData";
-// const PopularSearches = () => {
-//   return (
-//     <>
-//       <div>Popular Searches</div>
-//       <div className="grid grid-cols-6 text-center">
-//         {popularSectionData.map((item, index) => (
-//           <a href="/" key={index}>
-//             <div className="px-3">
-//               <Cards
-//                 title={item.title}
-//                 imageUrl={item.imageUrl}
-//                 description={item.description}
-//               />
-//             </div>
-//           </a>
-//         ))}
-//       </div>
-//     </>
-//   );
-// };
-
-// export default PopularSearches;
-
-
-
-
-// PopularSearches.jsx
-
 import Cards from "../Cards/HomepageCards";
 import { popularSectionData } from "@/app/MainData";
 import React, { useEffect, useState } from "react";
@@ -38,7 +5,6 @@ import { db } from "@/database/firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
 
 const PopularSearches = () => {
-
   const [freeListings, setFreeListings] = useState([]);
 
   useEffect(() => {

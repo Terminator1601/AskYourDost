@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import FilterSection from "../FilterSection/FilterSection";
 import SearchCard from "../Cards/SearchCard";
 
 const SearchPageBody = () => {
+  const [searchQuery, setSearchQuery] = useState("");
+
+  useEffect(() => {
+    setSearchQuery(new URLSearchParams(window.location.search).get("query"));
+  }, []);
   return (
     <div>
       <div className="grid grid-cols-3">
@@ -17,7 +22,7 @@ const SearchPageBody = () => {
             ratione minus autem libero nobis commodi ut odit fugiat, eos
             accusantium architecto!
           </p>
-          <SearchCard />
+          <SearchCard searchQuery={searchQuery}/>
         </div>
       </div>
     </div>
