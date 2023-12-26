@@ -1,5 +1,3 @@
-
-
 "use client";
 
 import { useState, ChangeEvent, FormEvent } from "react";
@@ -14,6 +12,7 @@ interface FormData {
   shopImage: string;
   services: string;
   description: string;
+  [key: string]: string; // Index signature
 }
 
 interface InputField {
@@ -53,28 +52,45 @@ const FreeListingForm: React.FC = () => {
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
+  const handleSelectChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
+  };
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-  
+
     // Validation: Check if all required fields are filled
-    const requiredFields = ["name", "email", "phone", "address", "shopImage", "services"];
+    const requiredFields = [
+      "name",
+      "email",
+      "phone",
+      "address",
+      "shopImage",
+      "services",
+    ];
     const missingFields = requiredFields.filter((field) => !formData[field]);
-  
+
     if (missingFields.length > 0) {
       // Show error alert for missing fields
-      window.alert(`Please fill in all required fields: ${missingFields.join(", ")}`);
+      window.alert(
+        `Please fill in all required fields: ${missingFields.join(", ")}`
+      );
       return; // Do not proceed with the submission
     }
-  
+
     // Store data in Firestore
     const firestore = getFirestore();
     try {
-      const docRef = await addDoc(collection(firestore, "FreeListing"), formData);
+      const docRef = await addDoc(
+        collection(firestore, "FreeListing"),
+        formData
+      );
       console.log("Document written with ID: ", docRef.id);
-  
+
       // Show success popup
       setShowSuccessPopup(true);
-  
+
       // Show success alert
       window.alert("Form submitted successfully!");
     } catch (error) {
@@ -87,12 +103,11 @@ const FreeListingForm: React.FC = () => {
         // Show generic error alert
         window.alert("An unknown error occurred. Please try again.");
       }
-  
+
       // Show error popup
       setShowErrorPopup(true);
     }
   };
-  
 
   const closePopup = () => {
     setShowSuccessPopup(false);
@@ -106,12 +121,17 @@ const FreeListingForm: React.FC = () => {
     { name: "address", label: "Address", type: "textarea", rows: 3 },
     { name: "shopImage", label: "Shop Image URL", type: "text" },
     { name: "services", label: "Services", type: "select" },
-    { name: "description", label: "description", type: "text" },
-
-    
+    { name: "description", label: "Description", type: "text" },
   ];
 
-  const servicesOptions = ["Hotels", "Restaurants", "Spa","Gym","Coaching", "Counselling"]; // Add your service options here
+  const servicesOptions = [
+    "Hotels",
+    "Restaurants",
+    "Spa",
+    "Gym",
+    "Coaching",
+    "Counselling",
+  ];
 
   return (
     <div className="min-h-screen flex items-center justify-center">
@@ -153,7 +173,7 @@ const FreeListingForm: React.FC = () => {
                   id={field.name}
                   name={field.name}
                   value={formData[field.name]}
-                  onChange={handleChange}
+                  onChange={handleSelectChange}
                   className="mt-1 p-2 w-full border rounded-md"
                   required
                 >
