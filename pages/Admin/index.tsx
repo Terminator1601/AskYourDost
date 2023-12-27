@@ -3,7 +3,7 @@ import "tailwindcss/tailwind.css";
 import Header from "../../components/Header/Header";
 import StatusUpdates, {
   getServerSideProps as getStatusUpdatesProps,
-} from "../../components/Admin/StatusUpdates";
+} from "../../components/Admin/PendingUpdate/StatusUpdates";
 import { GetServerSideProps } from "next"; // Import GetServerSideProps
 
 interface IndexProps {
