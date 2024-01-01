@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { db } from "../../database/firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
+import Link from "next/link";
 
 interface Listing {
   id: string;
@@ -66,7 +67,9 @@ const SearchCard: React.FC<SearchCardProps> = ({ searchQuery }) => {
               <p>{listing.description}</p>
             </div>
             <div>
-              <button type="button">Show Details</button>
+              <Link href={`/Details?query=${encodeURIComponent(listing.name || "")}`}>
+                  <button type="button">Show Details</button>
+              </Link>
               <button type="button">Contact Us</button>
             </div>
           </div>

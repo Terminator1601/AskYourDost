@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import { data } from "../../app/MainData";
 import "tailwindcss/tailwind.css";
-import { useUser } from "../../database/User/UserContext";
 
 interface DataItem {
   id: number;
@@ -37,7 +36,6 @@ const Header: React.FC = () => {
     setSearchTerm(event.target.value);
   };
 
-  const { username, email, phone } = useUser();
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-5 px-0 lg:flex lg:flex-row lg:justify-between">
@@ -79,11 +77,6 @@ const Header: React.FC = () => {
           Login/Signup
         </div>
       </a>
-      <div>
-        <p>Username: {username}</p>
-        <p>Email: {email}</p>
-        <p>Phone: {phone}</p>
-      </div>
     </div>
   );
 };
