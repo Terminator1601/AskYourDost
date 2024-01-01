@@ -4,11 +4,10 @@ import { collection, getDocs } from "firebase/firestore";
 
 interface Listing {
   id: string;
-  name?: string; // Make the 'name' property optional
+  name?: string;
   shopImage?: string;
   description?: string;
   services?: string;
-  // Add other properties as needed
 }
 
 interface SearchCardProps {
@@ -17,18 +16,19 @@ interface SearchCardProps {
 
 const SearchCard: React.FC<SearchCardProps> = ({ searchQuery }) => {
   const [freeListings, setFreeListings] = useState<Listing[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoading(true);
         const freeListingsCollection = collection(db, "FreeListing");
         const snapshot = await getDocs(freeListingsCollection);
         const data = snapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
-        })) as Listing[]; // Assert that data is an array of Listing
+        })) as Listing[];
 
-        // Filter data based on searchQuery
         const filteredData = data.filter(
           (listing) =>
             (listing.name &&
@@ -37,12 +37,13 @@ const SearchCard: React.FC<SearchCardProps> = ({ searchQuery }) => {
               listing.services
                 .toLowerCase()
                 .includes(searchQuery.toLowerCase()))
-          // Add additional conditions here if needed
         );
 
         setFreeListings(filteredData);
       } catch (error) {
         console.error("Error fetching data from Firestore: ", error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -53,21 +54,23 @@ const SearchCard: React.FC<SearchCardProps> = ({ searchQuery }) => {
 
   return (
     <>
-      {freeListings.map((listing) => (
-        <div key={listing.id} className="grid grid-cols-5 gap-3">
-          <div>
-            <img src={listing.shopImage} alt={listing.shopImage} />
+      {loading && <p>Loading...</p>}
+      {!loading &&
+        freeListings.map((listing) => (
+          <div key={listing.id} className="grid grid-cols-5 gap-3">
+            <div>
+              <img src={listing.shopImage} alt={listing.shopImage} />
+            </div>
+            <div className="grid col-span-3">
+              <h2>{listing.name || "No Name Available"}</h2>
+              <p>{listing.description}</p>
+            </div>
+            <div>
+              <button type="button">Show Details</button>
+              <button type="button">Contact Us</button>
+            </div>
           </div>
-          <div className="grid col-span-3">
-            <h2>{listing.name || "No Name Available"}</h2>
-            <p>{listing.description}</p>
-          </div>
-          <div>
-            <button type="button">Show Details</button>
-            <button type="button">Contact Us</button>
-          </div>
-        </div>
-      ))}
+        ))}
     </>
   );
 };

@@ -1,9 +1,5 @@
 "use client";
 
-// Header.js
-// Header.js
-// Header.js
-// Header.js
 import React, { useState } from "react";
 import { data } from "../../app/MainData";
 import "tailwindcss/tailwind.css";
@@ -23,7 +19,7 @@ const Header: React.FC = () => {
     filterData(searchTerm);
 
     // Check if window is defined (client-side)
-    if (typeof window !== 'undefined') {
+    if (typeof window !== "undefined") {
       // Redirect to SearchResults page with the search term as a query parameter
       const encodedSearchTerm = encodeURIComponent(searchTerm);
       window.location.href = `/SearchResults?query=${encodedSearchTerm}`;
@@ -54,7 +50,10 @@ const Header: React.FC = () => {
       </div>
 
       <div className="text-center md:text-left py-6  md:col-span-2">
-        <form onSubmit={handleSearchSubmit} className="flex items-center justify-center">
+        <form
+          onSubmit={handleSearchSubmit}
+          className="flex items-center justify-center"
+        >
           <input
             type="text"
             placeholder="Search..."
