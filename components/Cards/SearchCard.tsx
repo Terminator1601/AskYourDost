@@ -55,7 +55,7 @@ const SearchCard: React.FC<SearchCardProps> = ({ searchQuery }) => {
 
   return (
     <>
-      {loading && <p>Loading...</p>}
+      {loading}
       {!loading &&
         freeListings.map((listing) => (
           <div key={listing.id} className="grid grid-cols-5 gap-3">
