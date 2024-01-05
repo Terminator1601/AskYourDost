@@ -33,9 +33,12 @@ export default function Home() {
             <Header />
             <hr />
             <Navbar />
+            <hr />
             <FloatingWidgets />
             <PopularSearches />
+            <hr />
             <RecentlyAdded />
+            <hr />
             <Intro />
             <Services />
           </main>

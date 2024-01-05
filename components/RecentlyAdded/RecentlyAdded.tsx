@@ -42,8 +42,8 @@ const RecentlyAdded = () => {
   }, []);
 
   return (
-    <>
-      <div className="text-lg font-bold">Recently Added</div>
+    <div className="py-5">
+      <div className="text-lg font-bold pb-5">Recently Added</div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 text-center">
         {freeListings.map((item) => (
           <a
@@ -61,7 +61,7 @@ const RecentlyAdded = () => {
           </a>
         ))}
       </div>
-    </>
+    </div>
   );
 };
 
