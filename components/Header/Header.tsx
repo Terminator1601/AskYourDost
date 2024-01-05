@@ -36,9 +36,8 @@ const Header: React.FC = () => {
     setSearchTerm(event.target.value);
   };
 
-
   return (
-    <div className="grid grid-cols-1 md:grid-cols-5 px-0 lg:flex lg:flex-row lg:justify-between">
+    <div className="grid grid-cols-1 md:grid-cols-4 md:text-center px-0 lg:flex lg:flex-row lg:justify-between">
       <div className="text-center md:text-left px-0 py-6  text-2xl md:col-span-2">
         <a href="/">
           <span style={{ color: "var(--orange)" }}>Ask</span>
@@ -68,12 +67,14 @@ const Header: React.FC = () => {
         </form>
       </div>
       <a href="/freeListing">
-        <div className="text-center md:text-left px-0 py-6  text-xl md:col-span-2">
+        <div className="text-center md:text-left px-0 py-6  text-xl md:col-span-2 flex">
+          <img src="/images/freelisting-icon.png" alt="freelisting" />
           Free listing
         </div>
       </a>
       <a href="/Login">
-        <div className="text-center md:text-left px-0 py-6  text-xl md:col-span-2">
+        <div className="text-center md:text-left px-0 py-6  text-xl md:col-span-2 flex">
+          <img src="/images/login-icon.png" alt="login icon" className="text-center justify-center" />
           Login/Signup
         </div>
       </a>
