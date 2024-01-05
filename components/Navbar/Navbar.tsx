@@ -8,10 +8,14 @@ interface NavItemProps {
 }
 
 const NavItem: React.FC<NavItemProps> = ({ icon, text }) => (
-  <div className="text-center flex">
+  <div className="text-center items-center">
     <Link href={`/SearchResults?query=${encodeURIComponent(text)}`}>
       <div className="text-center items-center flex">
-        <img src={icon} alt={text} className="w-7 py-2" />
+        <img
+          src={icon}
+          alt={text}
+          className="w-7 py-2 text-center items-center"
+        />
         {text}
       </div>
     </Link>
@@ -20,7 +24,7 @@ const NavItem: React.FC<NavItemProps> = ({ icon, text }) => (
 
 const Navbar = () => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-6 px-2 lg:flex lg:flex-row lg:justify-between">
+    <div className="text-center justify-center items-center grid grid-cols-1 md:grid-cols-6  px-2 lg:flex lg:flex-row lg:justify-between">
       {navItems.map((item, index) => (
         <NavItem key={index} {...item} />
       ))}
