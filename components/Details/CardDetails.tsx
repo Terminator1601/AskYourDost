@@ -56,7 +56,7 @@ const CardDetails = () => {
   return freeListings.map((listing) => (
     <div className="grid grid-cols-2 p-8">
       <div className=" text-right">
-        <img src={listing.shopImage} className="w-64 h-64"></img>
+        <img src={listing.shopImage} className="w-64 h-64 max-h-full"></img>
       </div>
       <div key={listing.id}>
         <h1>Name: {listing.name}</h1>
