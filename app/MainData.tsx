@@ -1,11 +1,11 @@
 // constants.js
 export const navItems = [
-  { icon: "path-to-icon", text: "Hotels" },
-  { icon: "path-to-icon", text: "Restaurants" },
-  { icon: "path-to-icon", text: "Spa" },
-  { icon: "path-to-icon", text: "Gym" },
-  { icon: "path-to-icon", text: "Consultant" },
-  { icon: "path-to-icon", text: "Coaching" },
+  { icon: "/images/hotel-icon.png", text: "Hotels" },
+  { icon: "/images/restaurant-icon.png", text: "Restaurants" },
+  { icon: "/images/spa-icon.png", text: "Spa" },
+  { icon: "/images/gym-icon.png", text: "Gym" },
+  { icon: "/images/consultant-icon.png", text: "Consultant" },
+  { icon: "/images/coaching-icon.png", text: "Coaching" },
 ];
 
 // Add other constants as needed
