@@ -61,23 +61,25 @@ const Index = () => {
     <div>
       {loading ? (
         // <p>Loading...</p>
-        <Loader/>
+        <Loader />
       ) : (
         freeListings.map((listing) => (
           <>
-            <main className="sm:mx-20 md:px-16 md:py-0 lg:px-16 lg:py-0  bg-white">
-              <Header />
-              <Navbar />
-              <div key={listing.id}>
-                <h1>name: {listing.name}</h1>
-                <h1>email: {listing.email}</h1>
-                <h1>description: {listing.description}</h1>
-                <h1>shopimage: {listing.shopImage}</h1>
-                <h1>phone no: {listing.phone}</h1>
-                <h1>services: {listing.services}</h1>
-              </div>
-            </main>
-            <Footer/>
+            <body>
+              <main className="sm:mx-20 md:px-16 md:py-0 lg:px-16 lg:py-0  bg-white">
+                <Header />
+                <Navbar />
+                <div key={listing.id}>
+                  <h1>name: {listing.name}</h1>
+                  <h1>email: {listing.email}</h1>
+                  <h1>description: {listing.description}</h1>
+                  <h1>shopimage: {listing.shopImage}</h1>
+                  <h1>phone no: {listing.phone}</h1>
+                  <h1>services: {listing.services}</h1>
+                </div>
+              </main>
+            </body>
+            <Footer />
           </>
         ))
       )}
