@@ -2,6 +2,7 @@ import Cards from "../Cards/HomepageCards";
 import React, { useEffect, useState } from "react";
 import { db } from "../../database/firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
+import SkeletonCard from "../Loader/SkeletonCard";
 
 // Define the interface for the data from Firestore
 interface Listing {
@@ -15,6 +16,7 @@ interface Listing {
 
 const RecentlyAdded = () => {
   const [freeListings, setFreeListings] = useState<Listing[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -33,8 +35,10 @@ const RecentlyAdded = () => {
         const latestEntries = sortedData.slice(0, 6);
 
         setFreeListings(latestEntries);
+        setLoading(false); // Set loading to false once data is fetched
       } catch (error) {
         console.error("Error fetching data from Firestore: ", error);
+        setLoading(false); // Set loading to false in case of an error
       }
     };
 
@@ -44,23 +48,27 @@ const RecentlyAdded = () => {
   return (
     <div className="py-5">
       <div className="text-lg font-bold pb-5">Recently Added</div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 text-center">
-        {freeListings.map((item) => (
-          <a
-            href={`/Details?query=${encodeURIComponent(item.name || "")}`}
-            key={item.id}
-            className="block"
-          >
-            <div className="px-3">
-              <Cards
-                title={item.name}
-                imageUrl={item.shopImage}
-                description={item.description}
-              />
-            </div>
-          </a>
-        ))}
-      </div>
+      {loading ? (
+        <SkeletonCard /> // Display a loader while data is being fetched
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 text-center">
+          {freeListings.map((item) => (
+            <a
+              href={`/Details?query=${encodeURIComponent(item.name || "")}`}
+              key={item.id}
+              className="block"
+            >
+              <div className="px-3">
+                <Cards
+                  title={item.name}
+                  imageUrl={item.shopImage}
+                  description={item.description}
+                />
+              </div>
+            </a>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
