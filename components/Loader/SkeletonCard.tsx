@@ -1,7 +1,6 @@
 import React from 'react';
 import './SkeletonCard.css'; // Import your component-specific styles
 
-
 const SkeletonCard: React.FC = () => {
   return (
     <div className="row">
