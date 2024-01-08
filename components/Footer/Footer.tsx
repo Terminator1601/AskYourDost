@@ -9,9 +9,9 @@ const Footer: React.FC = () => {
         {/* Column 1 - Image */}
         <div className="w-full sm:w-1/2 md:w-1/4 lg:w-1/4 xl:w-1/4 mb-4">
           <img
-            src="/path/to/your/image.png" // Replace with the actual path to your image
+            src="/images/favicon.ico" // Replace with the actual path to your image
             alt="Footer Logo"
-            className="max-w-full h-auto"
+            className="max-w-full h-auto w-56 text-center"
           />
         </div>
 

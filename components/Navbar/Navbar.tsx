@@ -10,7 +10,7 @@ interface NavItemProps {
 const NavItem: React.FC<NavItemProps> = ({ icon, text }) => (
   <div className="text-center items-center py-3">
     <Link href={`/SearchResults?query=${encodeURIComponent(text)}`}>
-      <div className="text-center items-center flex">
+      <div className="text-center items-center flex ">
         <img
           src={icon}
           alt={text}

@@ -67,13 +67,13 @@ const Header: React.FC = () => {
         </form>
       </div>
       <a href="/freeListing">
-        <div className="text-center md:text-left px-0 py-6  text-xl md:col-span-2 flex">
+        <div className="justify-center md:text-left px-0 py-6  text-xl md:col-span-2 flex">
           <img src="/images/freelisting-icon.png" alt="freelisting" />
           Free listing
         </div>
       </a>
       <a href="/Login">
-        <div className="text-center md:text-left px-0 py-6  text-xl md:col-span-2 flex">
+        <div className="justify-center md:text-left px-0 py-6  text-xl md:col-span-2 flex">
           <img src="/images/login-icon.png" alt="login icon" className="text-center justify-center" />
           Login/Signup
         </div>
