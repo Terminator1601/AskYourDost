@@ -40,6 +40,7 @@ export default function Home() {
             <RecentlyAdded />
             <hr />
             <Intro />
+            <hr />
             <Services />
           </main>
           <Footer />
@@ -48,7 +49,3 @@ export default function Home() {
     </>
   );
 }
-
-
-
-
