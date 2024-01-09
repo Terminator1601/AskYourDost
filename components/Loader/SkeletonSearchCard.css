@@ -1,0 +1,30 @@
+.skeleton {
+    background: #fff;
+    box-shadow: 5px 8px 15px -10px rgba(0, 0, 0, 0.25);
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .skeleton-image {
+    height: 100px; /* Set your desired height */
+    background: #ccc;
+    margin-bottom: 10px;
+  }
+  
+  .skeleton-details {
+    height: 20px; /* Set your desired height */
+    background: #ccc;
+    margin-bottom: 10px;
+  }
+  
+  .skeleton-buttons {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .skeleton-buttons button {
+    width: 100px; /* Set your desired width */
+    height: 30px; /* Set your desired height */
+    background: #ccc;
+  }
+  
