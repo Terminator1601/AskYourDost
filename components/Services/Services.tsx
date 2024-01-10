@@ -17,7 +17,6 @@ const PopularSearches = () => {
                 <ServicesCard
                   imageUrl={item.imageUrl}
                   title={item.title}
-                  // description={item.description}
                 />
               </div>
             </a>
