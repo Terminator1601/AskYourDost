@@ -11,8 +11,8 @@ interface CardsProps {
 const Cards: React.FC<CardsProps> = ({ title, imageUrl }) => {
   return (
     <>
-      <div>
-        <img src={imageUrl} alt={title} />
+      <div className="text-center border">
+        <img src={imageUrl} alt={title} className=" w-48 h-48 mx-auto d-block" />
         <h2>{title}</h2>
         {/* <p>{description}</p> */}
       </div>

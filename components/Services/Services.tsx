@@ -8,9 +8,11 @@ const PopularSearches = () => {
     <>
       <div className="py-5">
         <div className="text-lg font-bold pb-5">Services Provided</div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 text-center">
+        <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-4 text-center place-content-center ">
           {ServicesData.map((item, index) => (
-            <a href="/" key={index}>
+            <a href={`/Services?query=${encodeURIComponent(
+              item.title || ""
+            )}`} key={index}>
               <div className="px-3">
                 <ServicesCard
                   imageUrl={item.imageUrl}

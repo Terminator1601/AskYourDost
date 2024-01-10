@@ -7,9 +7,11 @@ const Intro = () => {
       <div className="place-content-center">
         <div className=" py-36 mx-5 grid grid-cols-2 text-center">
           <div className="text-center">
-            <span style={{ color: "var(--orange)" }}>Ask</span>
-            <span style={{ color: "var(--green)" }}>Your</span>
-            <span style={{ color: "var(--blue)" }}>Dost</span>
+            <a href="/" className="hover:brightness-100 scale-150">
+              <span style={{ color: "var(--orange)" }}>Ask</span>
+              <span style={{ color: "var(--green)" }}>Your</span>
+              <span style={{ color: "var(--blue)" }}>Dost</span>
+            </a>
             <span>
               {" "}
               is a platform which provides you the information of the products
@@ -21,8 +23,12 @@ const Intro = () => {
               Here you can find information about the services available in your
               locality and you can also list your business services in this
               platform by simply clicking the{" "}
-              <span className="hover:brightness-150">
-                <a href="/freeListing" style={{ color: "var(--blue)" }}>
+              <span className="hover:brightness-100 scale-150">
+                <a
+                  href="/freeListing"
+                  style={{ color: "var(--blue)" }}
+                  className="bg-green"
+                >
                   FREELISTING
                 </a>
               </span>{" "}
