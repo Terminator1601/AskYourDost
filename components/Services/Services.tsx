@@ -1,5 +1,3 @@
-// PopularSearches.jsx
-
 import React from "react";
 import ServicesCard from "./ServicesCard";
 import { ServicesData } from "../../app/MainData";
@@ -10,14 +8,9 @@ const PopularSearches = () => {
         <div className="text-lg font-bold pb-5">Services Provided</div>
         <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-4 text-center place-content-center ">
           {ServicesData.map((item, index) => (
-            <a href={`/Services?query=${encodeURIComponent(
-              item.title || ""
-            )}`} key={index}>
+            <a href={`/Services`} key={index}>
               <div className="px-3">
-                <ServicesCard
-                  imageUrl={item.imageUrl}
-                  title={item.title}
-                />
+                <ServicesCard imageUrl={item.imageUrl} title={item.title} />
               </div>
             </a>
           ))}
