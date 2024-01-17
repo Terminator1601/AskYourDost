@@ -7,7 +7,8 @@ import "tailwindcss/tailwind.css";
 import "../../app/globals.css";
 import { UserProvider } from "../../database/User/UserContext";
 import Loader from "@/components/Loader/Loader";
-import ToggleHeadings from "@/components/BusinessPage/ToggleHeadings";
+import ToggleHeadings from "@/pages/BusinessAdmin/Dashboard/ToggleHeadings/ToggleHeadings";
+import Dashboard from "./Dashboard/Dashboard/Dashboard";
 
 const Index = () => {
   const [loading, setLoading] = useState(true);
@@ -32,8 +33,10 @@ const Index = () => {
             <Header />
             <hr />
             <Navbar />
+            <hr />
             <FloatingWidgets />
-            <ToggleHeadings/>
+            {/* <ToggleHeadings/> */}
+            <Dashboard />
           </main>
           <Footer />
         </>

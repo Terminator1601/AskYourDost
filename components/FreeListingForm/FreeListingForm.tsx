@@ -148,7 +148,10 @@ const FreeListingForm: React.FC = () => {
 
         {/* Right Side (Form) */}
         <div className="flex-grow p-8 bg-white shadow-md rounded-md">
-          <h2 className="text-2xl font-semibold mb-4">User Information</h2>
+          <h2 className="text-2xl font-semibold mb-4">
+            <span style={{ color: "var(--green)" }}>Your </span>Business
+            Information
+          </h2>
 
           {inputFields.map((field) => (
             <div key={field.name} className="mb-4">
