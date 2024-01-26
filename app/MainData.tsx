@@ -88,23 +88,23 @@ export const recentlyAddedData = [
 export const ServicesData = [
   {
     title: "Advertisement",
-    imageUrl: "/images/hotels.png",
+    imageUrl: "/images/advertisement.png",
     pageUrl:"",
   },
 
   {
     title: "Website Development",
-    imageUrl: "/images/hotels.png",
+    imageUrl: "/images/webdev.png",
     pageUrl:"",
   },
   {
     title: "Increase Leads",
-    imageUrl: "/images/hotels.png",
+    imageUrl: "/images/leads.png",
     pageUrl:"",
   },
   {
     title: "Careers",
-    imageUrl: "/images/hotels.png",
+    imageUrl: "/images/careers.png",
     pageUrl:"",
   },
 
