@@ -20,32 +20,32 @@ export const data = [
 export const popularSectionData = [
   {
     title: "Hotels",
-    imageUrl: "/images/hotels.png",
+    imageUrl: "/images/hotel.png",
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
   },
   {
     title: "Restaurants",
-    imageUrl: "/images/hotels.png",
+    imageUrl: "/images/restaurant.png",
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
   },
   {
     title: "Spa",
-    imageUrl: "/images/hotels.png",
+    imageUrl: "/images/spa.png",
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
   },
   {
     title: "Gym",
-    imageUrl: "/images/hotels.png",
+    imageUrl: "/images/gym.png",
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
   },
   {
     title: "Coaching",
-    imageUrl: "/images/hotels.png",
+    imageUrl: "/images/coaching.png",
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
   },
   {
     title: "Consultant",
-    imageUrl: "/images/hotels.png",
+    imageUrl: "/images/consultant.png",
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
   },
   // Add more items as needed
