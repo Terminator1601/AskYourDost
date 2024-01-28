@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Cards from "../Cards/HomepageCards";
+import PopularSearchCard from "../Cards/PopularSearchCard";
 import { popularSectionData } from "../../app/MainData";
 import "tailwindcss/tailwind.css";
 import SkeletonCard from "../Loader/SkeletonCard";
@@ -33,10 +33,10 @@ const PopularSearches = () => {
               key={index}
             >
               <div className="px-3 text-center">
-                <Cards
+                <PopularSearchCard
                   title={item.title}
                   imageUrl={item.imageUrl}
-                  description={item.description}
+                  // description={item.description}
                 />
               </div>
             </a>
