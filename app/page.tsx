@@ -9,7 +9,6 @@ import Footer from "../components/Footer/Footer";
 import Services from "../components/Services/Services";
 import Intro from "../components/Introduction/Intro";
 import Loader from "@/components/Loader/Loader";
-import ServiceCounting from "@/components/ServiceCounting/ServiceCounting";
 
 export default function Home() {
   const [loading, setLoading] = useState(true);

@@ -5,7 +5,6 @@ import FloatingWidgets from "../../components/floatingWidget/FloatingWidget";
 import Footer from "../../components/Footer/Footer";
 import "tailwindcss/tailwind.css";
 import "../../app/globals.css";
-import { UserProvider } from "../../database/User/UserContext";
 import Loader from "@/components/Loader/Loader";
 import ServicesDropdown from "./ServicesDropdown";
 
@@ -23,7 +22,7 @@ const Index = () => {
   }, []);
 
   return (
-    <UserProvider>
+    <>
       {loading ? (
         <Loader />
       ) : (
@@ -38,7 +37,7 @@ const Index = () => {
           <Footer />
         </>
       )}
-    </UserProvider>
+    </>
   );
 };
 

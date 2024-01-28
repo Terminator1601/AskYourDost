@@ -5,11 +5,23 @@
 // import { UserProvider } from "@/database/User/UserContext";
 // import { useUser } from "@/database/User/UserContext";
 
+// type UserData = {
+//   username: string;
+//   email: string;
+//   phone: string;
+//   password: string;
+//   captcha: string;
+//   enteredCaptcha: string;
+//   status: string;
+// };
+
 // const SignIn: React.FC = () => {
 //   const { updateUser /* other user data */ } = useUser();
 
-//   const [formData, setFormData] = useState({
+//   const [formData, setFormData] = useState<UserData>({
+//     username: "",
 //     email: "",
+//     phone: "",
 //     password: "",
 //     captcha: "",
 //     enteredCaptcha: "",
@@ -61,7 +73,7 @@
 //       }
 
 //       // Check if the password matches
-//       const userData = userSnapshot.docs[0].data();
+//       const userData = userSnapshot.docs[0].data() as UserData;
 //       if (userData.password !== formData.password) {
 //         throw new Error("Invalid password");
 //       }
@@ -119,6 +131,30 @@
 //                 className="block w-full mt-1 p-2 border rounded-md"
 //               />
 //             </label>
+//             {!isLoginMode && (
+//               <>
+//                 <label className="block mb-2">
+//                   Username:
+//                   <input
+//                     type="text"
+//                     name="username"
+//                     value={formData.username}
+//                     onChange={handleChange}
+//                     className="block w-full mt-1 p-2 border rounded-md"
+//                   />
+//                 </label>
+//                 <label className="block mb-2">
+//                   Phone:
+//                   <input
+//                     type="tel"
+//                     name="phone"
+//                     value={formData.phone}
+//                     onChange={handleChange}
+//                     className="block w-full mt-1 p-2 border rounded-md"
+//                   />
+//                 </label>
+//               </>
+//             )}
 //             <label className="block mb-2">
 //               Password:
 //               <input
@@ -179,11 +215,11 @@
 
 
 
-
 import { getDocs, query, where, collection } from "firebase/firestore";
 import React, { useState } from "react";
 import { db } from "../../database/firebaseConfig";
 import crypto from "crypto";
+import Cookies from "universal-cookie";
 import { UserProvider } from "@/database/User/UserContext";
 import { useUser } from "@/database/User/UserContext";
 
@@ -198,7 +234,7 @@ type UserData = {
 };
 
 const SignIn: React.FC = () => {
-  const { updateUser, /* other user data */ } = useUser();
+  const { updateUser /* other user data */ } = useUser();
 
   const [formData, setFormData] = useState<UserData>({
     username: "",
@@ -223,6 +259,8 @@ const SignIn: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState("");
 
+  const cookies = new Cookies(); // Create a cookies instance
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...formData,
@@ -230,9 +268,14 @@ const SignIn: React.FC = () => {
     });
   };
 
-  const handleSuccessfulLogin = (username: string) => {
+  const handleSuccessfulLogin = (userData: UserData) => {
     setIsLoggedIn(true);
-    setUsername(username);
+    setUsername(userData.username);
+
+    // Set cookies after successful login
+    cookies.set("username", userData.username, { path: "/" });
+    cookies.set("email", userData.email, { path: "/" });
+
     setFormData((prevData) => ({ ...prevData, status: "online" }));
     updateUser({ ...formData });
   };
@@ -262,7 +305,7 @@ const SignIn: React.FC = () => {
 
       console.log("Login successful!");
       window.alert(`Welcome ${userData.username}! Login successful!`);
-      handleSuccessfulLogin(userData.username);
+      handleSuccessfulLogin(userData);
     } catch (error: any) {
       console.error(`Error during login:`, error);
       window.alert(`Error during login: ${error.message}`);

@@ -6,7 +6,6 @@ import Footer from "../../components/Footer/Footer";
 import "tailwindcss/tailwind.css";
 import "../../app/globals.css";
 import SignIn from "../../components/Login&Signup/SignIn";
-import { UserProvider } from "../../database/User/UserContext";
 import Loader from "@/components/Loader/Loader";
 
 const Index = () => {
@@ -23,7 +22,7 @@ const Index = () => {
   }, []);
 
   return (
-    <UserProvider>
+    <>
       {loading ? (
         <Loader />
       ) : (
@@ -39,7 +38,7 @@ const Index = () => {
         </>
       )}
       {/* <SearchPage /> */}
-    </UserProvider>
+    </>
   );
 };
 

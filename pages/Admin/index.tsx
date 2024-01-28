@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { UserProvider } from "../../database/User/UserContext";
 import "tailwindcss/tailwind.css";
 import Header from "../../components/Header/Header";
 import StatusUpdates, {
@@ -26,7 +25,7 @@ const Index: React.FC<IndexProps> = ({ pendingUpdatesCount }) => {
   }, []);
 
   return (
-    <UserProvider>
+    <>
       {loading ? (
         <Loader />
       ) : (
@@ -35,7 +34,7 @@ const Index: React.FC<IndexProps> = ({ pendingUpdatesCount }) => {
           <StatusUpdates pendingUpdatesCount={pendingUpdatesCount} />
         </>
       )}
-    </UserProvider>
+    </>
   );
 };
 
