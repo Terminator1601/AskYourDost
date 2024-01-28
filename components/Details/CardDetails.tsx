@@ -68,7 +68,7 @@ const CardDetails = () => {
         <div className="text-right">
           <img
             src={listing.shopImage}
-            className="w-64 h-64 max-h-full"
+            className="w-64 h-64 max-h-full  object-contain"
             alt="Shop Image"
           ></img>
         </div>

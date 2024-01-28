@@ -61,7 +61,7 @@ const SearchCard: React.FC<SearchCardProps> = ({ searchQuery }) => {
       {loading}
       {!loading &&
         freeListings.map((listing) => (
-          <div key={listing.id} className="grid grid-cols-5 gap-3 py-3 border ">
+          <div key={listing.id} className="grid lg:grid-cols-5 md:grid-cols-5 gap-3 py-3 border ">
             <div>
               <img src={listing.shopImage} alt={listing.shopImage} />
             </div>

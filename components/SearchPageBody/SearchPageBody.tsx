@@ -40,7 +40,10 @@ const SearchPageBody = () => {
           {isLoading ? (
             <SkeletonSearchCard /> // Show loader component while loading
           ) : (
-            <SearchCard searchQuery={searchQuery} />
+            <>
+              <SearchCard searchQuery={searchQuery} />
+              
+            </>
           )}
         </div>
       </div>
