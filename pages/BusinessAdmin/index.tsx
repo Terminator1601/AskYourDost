@@ -5,10 +5,10 @@ import FloatingWidgets from "../../components/floatingWidget/FloatingWidget";
 import Footer from "../../components/Footer/Footer";
 import "tailwindcss/tailwind.css";
 import "../../app/globals.css";
-import { UserProvider } from "../../database/User/UserContext";
 import Loader from "@/components/Loader/Loader";
 import ToggleHeadings from "@/pages/BusinessAdmin/Dashboard/ToggleHeadings/ToggleHeadings";
 import Dashboard from "./Dashboard/Dashboard/Dashboard";
+import { UserProvider } from "@/database/User/UserContext";
 
 const Index = () => {
   const [loading, setLoading] = useState(true);
@@ -24,11 +24,11 @@ const Index = () => {
   }, []);
 
   return (
-    <UserProvider>
+    <>
       {loading ? (
         <Loader />
       ) : (
-        <>
+        <UserProvider>
           <main className="sm:mx-20 md:px-16 md:py-0 lg:px-16 lg:py-0 bg-white">
             <Header />
             <hr />
@@ -39,9 +39,9 @@ const Index = () => {
             <Dashboard />
           </main>
           <Footer />
-        </>
+        </UserProvider>
       )}
-    </UserProvider>
+    </>
   );
 };
 

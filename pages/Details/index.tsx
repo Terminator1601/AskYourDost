@@ -7,6 +7,7 @@ import Footer from "@/components/Footer/Footer";
 import Loader from "@/components/Loader/Loader";
 import "../../app/globals.css";
 import CardDetails from "@/components/Details/CardDetails";
+import { UserProvider } from "@/database/User/UserContext";
 
 const Index = () => {
   const [loading, setLoading] = useState(true);
@@ -22,7 +23,7 @@ const Index = () => {
   }, []);
 
   return (
-    <>
+    <UserProvider>
       {loading ? (
         <Loader />
       ) : (
@@ -35,7 +36,7 @@ const Index = () => {
           <Footer />
         </div>
       )}
-    </>
+    </UserProvider>
   );
 };
 

@@ -5,9 +5,9 @@ import FloatingWidgets from "../../components/floatingWidget/FloatingWidget";
 import Footer from "../../components/Footer/Footer";
 import "tailwindcss/tailwind.css";
 import "../../app/globals.css";
-import { UserProvider } from "../../database/User/UserContext";
 import Loader from "@/components/Loader/Loader";
 import ServicesDropdown from "./ServicesDropdown";
+import { UserProvider } from "@/database/User/UserContext";
 
 const Index = () => {
   const [loading, setLoading] = useState(true);

@@ -5,10 +5,10 @@ import FloatingWidgets from "../../components/floatingWidget/FloatingWidget";
 import Footer from "../../components/Footer/Footer";
 import "tailwindcss/tailwind.css";
 import "../../app/globals.css";
-import { UserProvider } from "../../database/User/UserContext";
 import SearchHeading from "../../components/SearchBox/SearchHeading";
 import SearchPageBody from "../../components/SearchPageBody/SearchPageBody";
 import Loader from "@/components/Loader/Loader";
+import { UserProvider } from "@/database/User/UserContext";
 
 const Index = () => {
   const [loading, setLoading] = useState(true);
