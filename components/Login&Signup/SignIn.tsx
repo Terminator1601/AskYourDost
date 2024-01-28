@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-=======
+
 // import { getDocs, query, where, collection } from "firebase/firestore";
 // import React, { useState } from "react";
 // import { db } from "../../database/firebaseConfig";
@@ -217,7 +216,7 @@
 
 
 
->>>>>>> 343765116d5a9a991f369865282406976a555160
+
 import { getDocs, query, where, collection } from "firebase/firestore";
 import React, { useState } from "react";
 import { db } from "../../database/firebaseConfig";

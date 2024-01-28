@@ -189,11 +189,7 @@ const Header: React.FC = () => {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-4 md:text-center px-4 lg:flex lg:flex-row lg:justify-between">
-<<<<<<< HEAD
-    {/* ... (previous code) */}
-=======
       {/* ... (previous code) */}
->>>>>>> 343765116d5a9a991f369865282406976a555160
       <div className="text-center md:text-left px-0 py-6  text-2xl md:col-span-2">
         <a href="/">
           <span style={{ color: "var(--orange)" }}>Ask</span>
@@ -249,12 +245,7 @@ const Header: React.FC = () => {
             onClick={handleWelcomeClick}
             className="cursor-pointer justify-center md:text-left px-0 py-6 text-xl md:col-span-2 flex items-center"
           >
-<<<<<<< HEAD
-            Welcome, {usernameCookie}{" "}
-            <span className="ml-2">&#9660;</span>
-=======
             Welcome, {usernameCookie} <span className="ml-2">&#9660;</span>
->>>>>>> 343765116d5a9a991f369865282406976a555160
           </span>
 
           {showDropdown && (

@@ -24,11 +24,11 @@ const Index = () => {
   }, []);
 
   return (
-    <>
+    <UserProvider>
       {loading ? (
         <Loader />
       ) : (
-        <UserProvider>
+        <>
           <main className="sm:mx-20 md:px-16 md:py-0 lg:px-16 lg:py-0 bg-white">
             <Header />
             <hr />
@@ -39,9 +39,9 @@ const Index = () => {
             <Dashboard />
           </main>
           <Footer />
-        </UserProvider>
+        </>
       )}
-    </>
+    </UserProvider>
   );
 };
 

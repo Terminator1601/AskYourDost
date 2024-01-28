@@ -26,7 +26,7 @@ const Index: React.FC<IndexProps> = ({ pendingUpdatesCount }) => {
   }, []);
 
   return (
-    <>
+    <UserProvider>
       {loading ? (
         <Loader />
       ) : (
@@ -35,7 +35,7 @@ const Index: React.FC<IndexProps> = ({ pendingUpdatesCount }) => {
           <StatusUpdates pendingUpdatesCount={pendingUpdatesCount} />
         </>
       )}
-    </>
+    </UserProvider>
   );
 };
 

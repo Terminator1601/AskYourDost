@@ -23,7 +23,7 @@ const Index = () => {
   }, []);
 
   return (
-    <>
+    <UserProvider>
       {loading ? (
         <Loader />
       ) : (
@@ -39,7 +39,7 @@ const Index = () => {
         </>
       )}
       {/* <SearchPage /> */}
-    </>
+    </UserProvider>
   );
 };
 
