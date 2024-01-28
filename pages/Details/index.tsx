@@ -32,6 +32,7 @@ const Index = () => {
             <Header />
             <Navbar />
             <CardDetails />
+            
           </main>
           <Footer />
         </div>

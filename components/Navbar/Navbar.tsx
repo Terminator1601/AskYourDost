@@ -24,11 +24,14 @@ const NavItem: React.FC<NavItemProps> = ({ icon, text }) => (
 
 const Navbar = () => {
   return (
-    <div className="text-center justify-center items-center grid grid-cols-1 md:grid-cols-6  px-2 lg:flex lg:flex-row lg:justify-between">
-      {navItems.map((item, index) => (
-        <NavItem key={index} {...item} />
-      ))}
-    </div>
+    <>
+      <div className="text-center justify-center items-center grid grid-cols-1 md:grid-cols-6  px-2 lg:flex lg:flex-row lg:justify-between">
+        {navItems.map((item, index) => (
+          <NavItem key={index} {...item} />
+        ))}
+      </div>
+      <hr />
+    </>
   );
 };
 
