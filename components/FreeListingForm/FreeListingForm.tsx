@@ -13,7 +13,8 @@ interface FormData {
   shopImage: string[];
   services: string;
   description: string;
-  [key: string]: string | string[]; // Index signature
+  [key: string]: string | string[];
+  city: string;
 }
 
 interface InputField {
@@ -30,6 +31,7 @@ const FreeListingForm: React.FC = () => {
     email: "",
     phone: "",
     address: "",
+    city: "",
     shopImage: [],
     services: "",
     description: "",
@@ -85,7 +87,14 @@ const FreeListingForm: React.FC = () => {
     e.preventDefault();
 
     // Validation: Check if all required fields are filled
-    const requiredFields = ["name", "email", "phone", "address", "services"];
+    const requiredFields = [
+      "name",
+      "email",
+      "phone",
+      "address",
+      "city",
+      "services",
+    ];
     const missingFields = requiredFields.filter((field) => !formData[field]);
 
     if (missingFields.length > 0) {
@@ -138,6 +147,7 @@ const FreeListingForm: React.FC = () => {
     { name: "email", label: "Business Email", type: "email" },
     { name: "phone", label: "Phone Number", type: "tel" },
     { name: "address", label: "Address", type: "textarea", rows: 3 },
+    { name: "city", label: "City", type: "text" },
     { name: "services", label: "Services", type: "select" },
     { name: "description", label: "Description", type: "text" },
   ];

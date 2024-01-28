@@ -9,6 +9,9 @@ interface Listing {
   shopImage?: string;
   description?: string;
   services?: string;
+  email?: string;
+  address?: string;
+  city?: string;
 }
 
 interface SearchCardProps {
@@ -58,18 +61,26 @@ const SearchCard: React.FC<SearchCardProps> = ({ searchQuery }) => {
       {loading}
       {!loading &&
         freeListings.map((listing) => (
-          <div key={listing.id} className="grid grid-cols-5 gap-3">
+          <div key={listing.id} className="grid grid-cols-5 gap-3 py-3 border ">
             <div>
               <img src={listing.shopImage} alt={listing.shopImage} />
             </div>
             <div className="grid col-span-3">
               <h2>{listing.name || "No Name Available"}</h2>
               <p>{listing.description}</p>
+              <p>{listing.services}</p>
+              <p>{listing.address}</p>
+              <p>City : {listing.city}</p>
             </div>
             <div>
-              <Link href={`/Details?query=${encodeURIComponent(listing.name || "")}`}>
-                  <button type="button">Show Details</button>
+              <Link
+                href={`/Details?name=${encodeURIComponent(
+                  listing.name || ""
+                )}&email=${encodeURIComponent(listing.email || "")}&service=${encodeURIComponent(listing.services || "")}`}
+              >
+                <button type="button">Show Details</button>
               </Link>
+
               <button type="button">Contact Us</button>
             </div>
           </div>

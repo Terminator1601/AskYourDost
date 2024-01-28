@@ -11,6 +11,8 @@ interface Listing {
   shopImage: string;
   description: string;
   timestamp: number;
+  email: string;
+  services: string;
   // Add other properties as needed
 }
 
@@ -54,7 +56,9 @@ const RecentlyAdded = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 text-center">
           {freeListings.map((item) => (
             <a
-              href={`/Details?query=${encodeURIComponent(item.name || "")}`}
+            href={`/Details?name=${encodeURIComponent(
+              item.name || ""
+            )}&email=${encodeURIComponent(item.email || "")}&service=${encodeURIComponent(item.services || "")}`}
               key={item.id}
               className="block"
             >
