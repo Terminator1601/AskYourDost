@@ -10,7 +10,10 @@ import "../../app/globals.css";
 import FreeListingForm from "../../components/FreeListingForm/FreeListingForm";
 import Loader from "@/components/Loader/Loader";
 import Cookies from "universal-cookie";
+<<<<<<< HEAD
 import { UserProvider } from "@/database/User/UserContext";
+=======
+>>>>>>> 343765116d5a9a991f369865282406976a555160
 
 const Index = () => {
   const [loading, setLoading] = useState(true);
@@ -38,7 +41,7 @@ const Index = () => {
   };
 
   return (
-    <UserProvider>
+    <>
       {loading ? (
         <Loader />
       ) : (
@@ -68,7 +71,7 @@ const Index = () => {
           <Footer />
         </>
       )}
-    </UserProvider>
+    </>
   );
 };
 
