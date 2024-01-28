@@ -1,8 +1,11 @@
+// CardDetails.tsx
 import React, { useEffect, useState } from "react";
 import { db } from "../../database/firebaseConfig";
-import { collection, getDocs, query, where } from "firebase/firestore";
+import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
 import "tailwindcss/tailwind.css";
+import FeedbackForm, { FeedbackData } from "../Feedback/FeedbackForm";
 
+// Define Listing type
 interface Listing {
   id: string;
   name?: string;
@@ -13,7 +16,7 @@ interface Listing {
   phone?: string;
 }
 
-const CardDetails = () => {
+const CardDetails: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [freeListings, setFreeListings] = useState<Listing[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
@@ -31,7 +34,6 @@ const CardDetails = () => {
         setLoading(true);
         const freeListingsCollection = collection(db, "FreeListing");
 
-        // Get parameters from the URL
         const nameParam = new URLSearchParams(window.location.search).get(
           "name"
         );
@@ -42,7 +44,6 @@ const CardDetails = () => {
           "service"
         );
 
-        // Construct a query based on the provided parameters
         const q = query(
           freeListingsCollection,
           where("name", "==", nameParam),
@@ -66,6 +67,21 @@ const CardDetails = () => {
 
     fetchData();
   }, []);
+
+  const handleFeedbackSubmit = async (feedbackData: FeedbackData) => {
+    try {
+      const serviceFeedbacksCollection = collection(db, "ServiceFeedbacks");
+      await addDoc(serviceFeedbacksCollection, {
+        listingName: freeListings[0]?.name || "", // Adjust the field names as per your schema
+        service: freeListings[0]?.services || "",
+        email: freeListings[0]?.email || "",
+        ...feedbackData,
+      });
+      console.log("Feedback submitted successfully.");
+    } catch (error) {
+      console.error("Error storing feedback in Firestore:", error);
+    }
+  };
 
   return freeListings.map((listing) => (
     <div key={listing.id}>
@@ -99,6 +115,8 @@ const CardDetails = () => {
           </button>
         </div>
       </div>
+      {/* Pass onSubmit function to the Feedback component */}
+      <FeedbackForm onSubmit={handleFeedbackSubmit} />
       <hr />
     </div>
   ));
