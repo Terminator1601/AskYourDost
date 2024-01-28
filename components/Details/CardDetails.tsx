@@ -4,6 +4,7 @@ import { db } from "../../database/firebaseConfig";
 import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
 import "tailwindcss/tailwind.css";
 import FeedbackForm, { FeedbackData } from "../Feedback/FeedbackForm";
+import FeedbackList from "../Feedback/FeedbackList";
 
 // Define Listing type
 interface Listing {
@@ -72,12 +73,17 @@ const CardDetails: React.FC = () => {
     try {
       const serviceFeedbacksCollection = collection(db, "ServiceFeedbacks");
       await addDoc(serviceFeedbacksCollection, {
-        listingName: freeListings[0]?.name || "", // Adjust the field names as per your schema
+        listingName: freeListings[0]?.name || "",
         service: freeListings[0]?.services || "",
         email: freeListings[0]?.email || "",
         ...feedbackData,
       });
-      console.log("Feedback submitted successfully.");
+
+      // Show success alert
+      window.alert("Feedback submitted successfully.");
+
+      // Refresh the page
+      window.location.reload();
     } catch (error) {
       console.error("Error storing feedback in Firestore:", error);
     }
@@ -117,6 +123,7 @@ const CardDetails: React.FC = () => {
       </div>
       {/* Pass onSubmit function to the Feedback component */}
       <FeedbackForm onSubmit={handleFeedbackSubmit} />
+      <FeedbackList name={listing.name || ""} email={listing.email || ""} service={listing.services || ""} />
       <hr />
     </div>
   ));
