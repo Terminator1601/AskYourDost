@@ -1,4 +1,3 @@
-
 // import { getDocs, query, where, collection } from "firebase/firestore";
 // import React, { useState } from "react";
 // import { db } from "../../database/firebaseConfig";
@@ -212,11 +211,6 @@
 
 // export default SignIn;
 
-
-
-
-
-
 import { getDocs, query, where, collection } from "firebase/firestore";
 import React, { useState } from "react";
 import { db } from "../../database/firebaseConfig";
@@ -306,6 +300,8 @@ const SignIn: React.FC = () => {
       }
 
       console.log("Login successful!");
+      // window.location.reload();
+      window.location.href = "http://localhost:3000";
       window.alert(`Welcome ${userData.username}! Login successful!`);
       handleSuccessfulLogin(userData);
     } catch (error: any) {

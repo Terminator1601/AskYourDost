@@ -15,6 +15,7 @@ interface FormData {
   description: string;
   [key: string]: string | string[];
   city: string;
+  websiteLink: string;
 }
 
 interface InputField {
@@ -35,6 +36,7 @@ const FreeListingForm: React.FC = () => {
     shopImage: [],
     services: "",
     description: "",
+    websiteLink:"",
   });
 
   const [numImages, setNumImages] = useState<number>(0);
@@ -119,6 +121,8 @@ const FreeListingForm: React.FC = () => {
 
       // Show success alert
       window.alert("Form submitted successfully!");
+      window.location.reload();
+
     } catch (error) {
       if (error instanceof Error && error.message) {
         console.error("Error adding document: ", error.message);
@@ -150,6 +154,7 @@ const FreeListingForm: React.FC = () => {
     { name: "city", label: "City", type: "text" },
     { name: "services", label: "Services", type: "select" },
     { name: "description", label: "Description", type: "text" },
+    {name: "websiteLink", label: "Existing Website Link (Optional)", type: "text"}
   ];
 
   const servicesOptions = [
@@ -158,7 +163,7 @@ const FreeListingForm: React.FC = () => {
     "Spa",
     "Gym",
     "Coaching",
-    "Counselling",
+    "Consultant",
   ];
 
   // Return JSX for the component
