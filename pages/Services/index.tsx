@@ -7,7 +7,6 @@ import "tailwindcss/tailwind.css";
 import "../../app/globals.css";
 import Loader from "@/components/Loader/Loader";
 import ServicesDropdown from "./ServicesDropdown";
-import { UserProvider } from "@/database/User/UserContext";
 
 const Index = () => {
   const [loading, setLoading] = useState(true);
