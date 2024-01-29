@@ -32,7 +32,7 @@ const PopularSearches = () => {
               )}`}
               key={index}
             >
-              <div className="px-3 text-center">
+              <div className="px-3 text-center ">
                 <PopularSearchCard
                   title={item.title}
                   imageUrl={item.imageUrl}

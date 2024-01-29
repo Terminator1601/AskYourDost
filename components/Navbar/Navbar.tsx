@@ -40,7 +40,7 @@ const Navbar = () => {
           <img
             src="/images/downwardArrow.png" // Replace with your arrow icon path
             alt="Toggle"
-            className={`w-5 transform ${showItems ? "rotate-180" : ""}`}
+            className={`w-5 transform ${showItems ? "rotate-180" : "animate-bounce"}`}
           />
           <p>Options</p>
         </button>

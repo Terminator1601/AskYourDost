@@ -17,7 +17,7 @@ interface PopularSearchCardProps {
             alt={title}
             className=" w-32 h-32 mx-auto d-block object-contain"
           />
-          <h2 className='p-2' style={{background: "var(--orange)" }}>{title}</h2>
+          <h2 className='p-2 rounded-full ' style={{background: "var(--orange)" }}>{title}</h2>
           {/* <p>{description}</p> */}
         </div>
       </>
