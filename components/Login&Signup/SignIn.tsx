@@ -211,7 +211,7 @@
 
 // export default SignIn;
 
-import { getDocs, query, where, collection } from "firebase/firestore";
+import { getDocs, addDoc, query, where, collection } from "firebase/firestore";
 import React, { useState } from "react";
 import { db } from "../../database/firebaseConfig";
 import crypto from "crypto";
@@ -289,24 +289,44 @@ const SignIn: React.FC = () => {
       );
       const userSnapshot = await getDocs(userQuery);
 
-      if (userSnapshot.empty) {
-        throw new Error("Email not registered. Please register.");
-      }
+      // Registration logic
+      if (!isLoginMode) {
+        if (userSnapshot.docs.length > 0) {
+          throw new Error("Email already registered. Please log in.");
+        }
 
-      // Check if the password matches
-      const userData = userSnapshot.docs[0].data() as UserData;
-      if (userData.password !== formData.password) {
-        throw new Error("Invalid password");
-      }
+        const newUser = {
+          email: formData.email,
+          username: formData.username,
+          password: formData.password,
+          phone: formData.phone,
+          status: "online",
+        };
 
-      console.log("Login successful!");
-      // window.location.reload();
-      window.location.href = "http://localhost:3000";
-      window.alert(`Welcome ${userData.username}! Login successful!`);
-      handleSuccessfulLogin(userData);
+        // Add the new user to the database
+        await addDoc(collection(db, "userData"), newUser);
+
+        console.log("Registration successful!");
+        window.alert(`Registration successful! Please log in.`);
+        toggleMode(); // Switch to the login mode after successful registration
+      } else {
+        // Login logic
+        if (userSnapshot.empty) {
+          throw new Error("Email not registered. Please register.");
+        }
+
+        const userData = userSnapshot.docs[0].data() as UserData;
+        if (userData.password !== formData.password) {
+          throw new Error("Invalid password");
+        }
+
+        console.log("Login successful!");
+        window.alert(`Welcome ${userData.username}! Login successful!`);
+        handleSuccessfulLogin(userData);
+      }
     } catch (error: any) {
-      console.error(`Error during login:`, error);
-      window.alert(`Error during login: ${error.message}`);
+      console.error(`Error during login/registration:`, error);
+      window.alert(`Error during login/registration: ${error.message}`);
       if (error.message === "Email not registered. Please register.") {
         setIsLoginMode(false);
       }
