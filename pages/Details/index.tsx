@@ -24,12 +24,13 @@ const Index = () => {
 
   return (
     <UserProvider>
-      {loading ? (
+      {loading ?  (
         <Loader />
       ) : (
         <div style={{ backgroundColor: "var(--grey)" }}>
           <main className="sm:mx-20 md:px-16 md:py-0 lg:px-16 lg:py-0 bg-white">
             <Header />
+            <hr />
             <Navbar />
             <CardDetails />
           </main>
