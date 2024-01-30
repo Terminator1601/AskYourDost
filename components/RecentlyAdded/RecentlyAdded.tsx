@@ -48,8 +48,8 @@ const RecentlyAdded = () => {
   }, []);
 
   return (
-    <div className="py-5">
-      <div className="text-lg font-bold pb-5">Recently Added</div>
+    <div className="">
+      <div className="text-lg font-bold py-8 pl-5">Recently Added</div>
       {loading ? (
         <SkeletonCard /> // Display a loader while data is being fetched
       ) : (

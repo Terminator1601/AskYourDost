@@ -19,8 +19,8 @@ const PopularSearches = () => {
   }, []);
 
   return (
-    <div className="py-5">
-      <div className="text-lg font-bold pb-5">Popular Searches</div>
+    <div className="">
+      <div className="text-lg font-bold py-8 pl-5">Popular Searches</div>
       {loading ? (
         <SkeletonCard />
       ) : (

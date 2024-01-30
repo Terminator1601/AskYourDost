@@ -33,7 +33,7 @@ export default function Home() {
         <body>
           <main className="sm:mx-20 md:px-16 md:py-0 lg:px-16 lg:py-0  bg-white">
             <Header />
-            <hr />
+            <hr className="" />
             <Navbar />
             <FloatingWidgets />
             <PopularSearches />
