@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import { db } from "../../database/firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
 import Link from "next/link";
+import "../../app/globals.css";
+import "tailwindcss/tailwind.css";
+import SkeletonCard from "../Loader/SkeletonSearchCard";
 
 interface Listing {
   id: string;
@@ -58,10 +61,13 @@ const SearchCard: React.FC<SearchCardProps> = ({ searchQuery }) => {
 
   return (
     <>
-      {loading}
-      {!loading &&
+      {loading && <SkeletonCard/>}
+      {!loading && 
         freeListings.map((listing) => (
-          <div key={listing.id} className="grid lg:grid-cols-5 md:grid-cols-5 gap-3 py-3 border ">
+          <div
+            key={listing.id}
+            className="grid lg:grid-cols-5 md:grid-cols-5 gap-3 py-3 border "
+          >
             <div>
               <img src={listing.shopImage} alt={listing.shopImage} />
             </div>
@@ -69,19 +75,28 @@ const SearchCard: React.FC<SearchCardProps> = ({ searchQuery }) => {
               <h2>{listing.name || "No Name Available"}</h2>
               <p>{listing.description}</p>
               <p>{listing.services}</p>
-              <p>{listing.address}</p>
+              <p>Address : {listing.address}</p>
               <p>City : {listing.city}</p>
             </div>
-            <div>
-              <Link
-                href={`/Details?name=${encodeURIComponent(
-                  listing.name || ""
-                )}&email=${encodeURIComponent(listing.email || "")}&service=${encodeURIComponent(listing.services || "")}`}
-              >
-                <button type="button">Show Details</button>
-              </Link>
+            <div className="grid grid-rows-2  content-center">
+              <div className="px-5">
+                <Link
+                  // className="text-center"
+                  href={`/Details?name=${encodeURIComponent(
+                    listing.name || ""
+                  )}&email=${encodeURIComponent(
+                    listing.email || ""
+                  )}&service=${encodeURIComponent(listing.services || "")}`}
+                >
+                  <button type="button">Show Details</button>
+                </Link>
+              </div>
+              <div className="px-5">
 
-              <button type="button">Contact Us</button>
+                <button  type="button">
+                  Contact Us
+                </button>
+              </div>
             </div>
           </div>
         ))}
