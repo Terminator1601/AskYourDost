@@ -11,7 +11,7 @@ interface CardsProps {
 const Cards: React.FC<CardsProps> = ({ title, imageUrl, description }) => {
   return (
     <>
-      <div className="text-center border">
+      <div className="text-center hover:shadow-xl	 ">
         <img
           src={imageUrl}
           alt={title}
