@@ -11,7 +11,7 @@ interface PopularSearchCardProps {
   const PopularSearchCard: React.FC<PopularSearchCardProps> = ({ title, imageUrl }) => {
     return (
       <>
-        <div className="text-center border">
+        <div className="text-center border transition hover:scale-125 hover:delay-150">
           <img
             src={imageUrl}
             alt={title}

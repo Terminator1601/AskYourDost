@@ -37,7 +37,6 @@ export default function Home() {
             <Navbar />
             <FloatingWidgets />
             <PopularSearches />
-            <hr />
             <RecentlyAdded />
             <hr />
             <Intro />

@@ -19,7 +19,7 @@ const PopularSearches = () => {
   }, []);
 
   return (
-    <div className="">
+    <div className="pb-10">
       <div className="text-lg font-bold py-8 pl-5">Popular Searches</div>
       {loading ? (
         <SkeletonCard />
