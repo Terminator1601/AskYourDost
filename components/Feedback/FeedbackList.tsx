@@ -17,7 +17,11 @@ interface FeedbackListProps {
   service: string;
 }
 
-const FeedbackList: React.FC<FeedbackListProps> = ({ name, email, service }) => {
+const FeedbackList: React.FC<FeedbackListProps> = ({
+  name,
+  email,
+  service,
+}) => {
   const [feedbacks, setFeedbacks] = useState<Feedback[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -53,20 +57,22 @@ const FeedbackList: React.FC<FeedbackListProps> = ({ name, email, service }) => 
 
   return (
     <div>
-      <h2 className="text-2xl font-semibold mb-4 text-center">Feedbacks for {service}</h2>
+      <h2 className="text-2xl font-semibold mb-4 text-center">
+        Feedbacks for {service}
+      </h2>
       {loading && <p>Loading feedbacks...</p>}
       {!loading && feedbacks.length === 0 && <p>No feedbacks available.</p>}
       {!loading && feedbacks.length > 0 && (
-        <ul>
+        <div className="grid grid-cols-6 px-5">
           {feedbacks.map((feedback) => (
-            <li key={feedback.id}>
+            <div key={feedback.id}>
               <strong>{feedback.name}</strong>
               <p>Rating: {feedback.rating}</p>
               <p>{feedback.feedbackText}</p>
               {/* Add other feedback details as needed */}
-            </li>
+            </div>
           ))}
-        </ul>
+        </div>
       )}
     </div>
   );

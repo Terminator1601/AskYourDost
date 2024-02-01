@@ -56,9 +56,11 @@ const RecentlyAdded = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 text-center">
           {freeListings.map((item) => (
             <a
-            href={`/Details?name=${encodeURIComponent(
-              item.name || ""
-            )}&email=${encodeURIComponent(item.email || "")}&service=${encodeURIComponent(item.services || "")}`}
+              href={`/Details?name=${encodeURIComponent(
+                item.name || ""
+              )}&email=${encodeURIComponent(
+                item.email || ""
+              )}&service=${encodeURIComponent(item.services || "")}`}
               key={item.id}
               className="block"
             >
