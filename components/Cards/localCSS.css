@@ -1,0 +1,38 @@
+/* globals.css */
+
+/* Default styles for all screens */
+.text-center {
+    text-align: center;
+  }
+  
+  .border-amber-400 {
+    border: 1px solid #ff9800; /* Adjust the color as needed */
+  }
+  
+  .rounded-full {
+    border-radius: 50%;
+  }
+  
+  .transition {
+    transition: all 0.3s ease; /* Adjust the duration and easing as needed */
+  }
+  
+  .hover\:scale-125 {
+    transform: scale(1); /* Default scale transformation */
+  }
+  
+  .hover\:delay-150 {
+    transition-delay: 150ms; /* Default delay */
+  }
+  
+  /* Media query for screens smaller than a certain width (e.g., 600px) */
+  @media screen and (max-width: 600px) {
+    .hover\:scale-125 {
+      transform: none; /* Remove the scale transformation */
+    }
+  
+    .hover\:delay-150 {
+      transition-delay: 0s; /* Remove the delay */
+    }
+  }
+  

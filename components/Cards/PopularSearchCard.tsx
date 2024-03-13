@@ -1,5 +1,6 @@
 import React from 'react'
 import "../../app/globals.css"
+import "./localCSS.css"
 
 interface PopularSearchCardProps {
     title: string;
@@ -11,7 +12,7 @@ interface PopularSearchCardProps {
   const PopularSearchCard: React.FC<PopularSearchCardProps> = ({ title, imageUrl }) => {
     return (
       <>
-        <div className="text-center border border-amber-400	rounded-full transition hover:scale-125 hover:delay-150">
+        <div className="text-center border border-amber-400	rounded-full ">
           <img
             src={imageUrl}
             alt={title}
