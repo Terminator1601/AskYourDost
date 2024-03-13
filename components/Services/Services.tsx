@@ -15,6 +15,8 @@ const PopularSearches = () => {
             </a>
           ))}
         </div>
+        <br />
+        <br />
       </div>
     </>
   );
