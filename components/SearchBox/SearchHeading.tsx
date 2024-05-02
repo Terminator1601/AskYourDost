@@ -12,7 +12,7 @@ const SearchHeading = () => {
   }, []);
 
   return (
-    <div className="text-center">Showing search results for {searchQuery}</div>
+    <div className="text-center font-mono p-5">Showing search results for {searchQuery}</div>
   );
 };
 

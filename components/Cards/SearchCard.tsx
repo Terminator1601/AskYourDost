@@ -61,8 +61,8 @@ const SearchCard: React.FC<SearchCardProps> = ({ searchQuery }) => {
 
   return (
     <>
-      {loading && <SkeletonCard/>}
-      {!loading && 
+      {loading && <SkeletonCard />}
+      {!loading &&
         freeListings.map((listing) => (
           <div
             key={listing.id}
@@ -71,33 +71,41 @@ const SearchCard: React.FC<SearchCardProps> = ({ searchQuery }) => {
             <div>
               <img src={listing.shopImage} alt={listing.shopImage} />
             </div>
-            <div className="grid col-span-3">
+            <div className="grid col-span-3 font-serif">
               <h2>{listing.name || "No Name Available"}</h2>
               <p>{listing.description}</p>
               <p>{listing.services}</p>
               <p>Address : {listing.address}</p>
               <p>City : {listing.city}</p>
             </div>
-            <div className="grid grid-rows-2  content-center">
-              <div className="px-5">
-                <Link
-                  // className="text-center"
-                  href={`/Details?name=${encodeURIComponent(
-                    listing.name || ""
-                  )}&email=${encodeURIComponent(
-                    listing.email || ""
-                  )}&service=${encodeURIComponent(listing.services || "")}`}
-                >
-                  <button type="button">Show Details</button>
-                </Link>
-              </div>
-              <div className="px-5">
+            <div className="grid grid-cols-2 gap-4 p-3">
+  <div className="px-5 flex justify-center items-center">
+    <Link
+      // className="text-center"
+      href={`/Details?name=${encodeURIComponent(
+        listing.name || ""
+      )}&email=${encodeURIComponent(
+        listing.email || ""
+      )}&service=${encodeURIComponent(listing.services || "")}`}
+    >
+      <button
+        type="button"
+        className="bg-blue-500 text-white px-4 py-2 rounded"
+      >
+        Show Details
+      </button>
+    </Link>
+  </div>
+  <div className="px-5 flex justify-center items-center">
+    <button
+      type="button"
+      className="bg-green-500 text-white px-4 py-2 rounded"
+    >
+      Contact Us
+    </button>
+  </div>
+</div>
 
-                <button  type="button">
-                  Contact Us
-                </button>
-              </div>
-            </div>
           </div>
         ))}
     </>

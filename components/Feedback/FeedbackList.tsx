@@ -65,10 +65,12 @@ const FeedbackList: React.FC<FeedbackListProps> = ({
       {!loading && feedbacks.length > 0 && (
         <div className="grid grid-cols-6 px-5">
           {feedbacks.map((feedback) => (
-            <div key={feedback.id}>
-              <strong>{feedback.name}</strong>
-              <p>Rating: {feedback.rating}</p>
-              <p>{feedback.feedbackText}</p>
+            <div key={feedback.id} className="border">
+              <div className="">
+                <strong>{feedback.name}</strong>
+                <p>Rating: {feedback.rating}</p>
+                <p>{feedback.feedbackText}</p>
+              </div>
               {/* Add other feedback details as needed */}
             </div>
           ))}
