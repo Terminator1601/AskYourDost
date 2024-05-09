@@ -9,6 +9,8 @@
 #database configuration
 /database
 
+#venv folder
+/venv
 # testing
 /coverage
 
