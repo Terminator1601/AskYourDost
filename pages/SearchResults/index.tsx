@@ -9,6 +9,7 @@ import SearchHeading from "../../components/SearchBox/SearchHeading";
 import SearchPageBody from "../../components/SearchPageBody/SearchPageBody";
 import Loader from "@/components/Loader/Loader";
 import { UserProvider } from "@/database/User/UserContext";
+import Head from "next/head";
 
 const Index = () => {
   const [loading, setLoading] = useState(true);
@@ -29,6 +30,10 @@ const Index = () => {
         <Loader />
       ) : (
         <>
+          <Head>
+            <title>Search Results</title>
+            <link rel="icon" href="./favicon.ico" />
+          </Head>
           <main className="sm:mx-20 md:px-16 md:py-0 lg:px-16 lg:py-0 bg-white">
             <Header />
             <hr />
