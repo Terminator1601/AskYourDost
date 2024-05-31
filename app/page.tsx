@@ -30,13 +30,13 @@ export default function Home() {
       {loading ? (
         <Loader />
       ) : (
-        <body>
+        <>
           <main className="sm:mx-20 md:px-16 md:py-0 lg:px-16 lg:py-0  bg-white">
             <Header />
             <hr className="" />
             <Navbar />
             <FloatingWidgets />
-            <PopularSearches />
+            {/* <PopularSearches /> */}
             <hr />
             <RecentlyAdded />
             <hr />
@@ -46,7 +46,7 @@ export default function Home() {
             {/* <ServiceCounting pendingUpdatesCount={pendingUpdatesCount}/> */}
           </main>
           <Footer />
-        </body>
+        </>
       )}
     </UserProvider>
   );
