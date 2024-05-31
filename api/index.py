@@ -180,9 +180,8 @@
 
 
 
-
-
 from flask import Flask, request, jsonify
+from flask_cors import CORS  # Import CORS extension
 import pickle
 import nltk
 from nltk.tokenize import word_tokenize
@@ -192,6 +191,7 @@ import string
 
 # Initialize Flask application
 app = Flask(__name__)
+CORS(app)  # Enable CORS for all routes
 
 # Load the trained model and TF-IDF vectorizer
 with open('./ML model/ML_model.pkl', 'rb') as model_file:
@@ -232,8 +232,6 @@ def predict():
     # Return the prediction as a JSON response
     return jsonify({'category': predicted_category_name})
 
-
-
 @app.route("/api/healthchecker", methods=["GET"])
 def healthchecker():
     return {"status": "success", "message": "Integrate Flask Framework with Next.js"}
@@ -242,4 +240,4 @@ if __name__ == '__main__':
     nltk.download('stopwords')
     nltk.download('punkt')
     nltk.download('wordnet')
-    app.run(debug=True ,port=3000)
+    app.run(debug=True, port=3000)
