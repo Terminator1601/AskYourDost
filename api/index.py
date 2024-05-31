@@ -194,9 +194,9 @@ import string
 app = Flask(__name__)
 
 # Load the trained model and TF-IDF vectorizer
-with open('../ML model/ML_model.pkl', 'rb') as model_file:
+with open('./ML model/ML_model.pkl', 'rb') as model_file:
     model = pickle.load(model_file)
-with open('../ML model/vectorizer.pkl', 'rb') as vectorizer_file:
+with open('./ML model/vectorizer.pkl', 'rb') as vectorizer_file:
     tfidf_vectorizer = pickle.load(vectorizer_file)
 
 # Preprocessing function
@@ -242,4 +242,4 @@ if __name__ == '__main__':
     nltk.download('stopwords')
     nltk.download('punkt')
     nltk.download('wordnet')
-    app.run(debug=True )
+    app.run(debug=True ,port=3000)
