@@ -24,7 +24,7 @@ const PopularSearches = () => {
       {loading ? (
         <SkeletonCard />
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 text-center">
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 text-center">
           {popularSectionData.map((item, index) => (
             <a
               href={`/SearchResults?query=${encodeURIComponent(

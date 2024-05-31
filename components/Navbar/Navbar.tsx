@@ -8,7 +8,7 @@ interface NavItemProps {
 }
 
 const NavItem: React.FC<NavItemProps> = ({ icon, text }) => (
-  <div className="text-center items-center py-3 px-10   hover:rounded-full hover:bg-zinc-100	">
+  <div className="text-center items-center py-3 px-10   hover:rounded-full hover:bg-zinc-100">
     <Link href={`/SearchResults?query=${encodeURIComponent(text)}`}>
       <div className="text-center items-center flex ">
         <img
@@ -32,7 +32,7 @@ const Navbar = () => {
   return (
     <>
       {/* Toggle Button for Mobile View */}
-      <div className="lg:hidden text-center w-full py-3">
+      <div className="lg:hidden text-center w-full py-3 ">
         <button
           onClick={toggleItems}
           className="flex items-center justify-center w-full"
