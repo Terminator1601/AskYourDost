@@ -232,6 +232,12 @@ def predict():
     # Return the prediction as a JSON response
     return jsonify({'category': predicted_category_name})
 
+
+
+@app.route("/api/healthchecker", methods=["GET"])
+def healthchecker():
+    return {"status": "success", "message": "Integrate Flask Framework with Next.js"}
+
 if __name__ == '__main__':
     nltk.download('stopwords')
     nltk.download('punkt')
