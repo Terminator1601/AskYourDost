@@ -1,9 +1,15 @@
-// pages/index.js
 import { useEffect, useState } from 'react';
 
+// Define the interface for the response data
+interface HealthCheckerResponse {
+  status: string;
+  message: string;
+}
+
 export default function Home() {
-  const [data, setData] = useState(null);
-  const [error, setError] = useState(null);
+  // Use the interface to type the state
+  const [data, setData] = useState<HealthCheckerResponse | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     fetch('http://127.0.0.1:3000/api/healthchecker')
@@ -13,7 +19,7 @@ export default function Home() {
         }
         return response.json();
       })
-      .then((data) => setData(data))
+      .then((data: HealthCheckerResponse) => setData(data))
       .catch((error) => {
         console.error('Error fetching data:', error);
         setError(error.toString());
