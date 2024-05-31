@@ -12,7 +12,7 @@ const nextConfig = {
             source: '/api/:path*',
             destination:
             process.env.NODE_ENV === 'development'
-                ? 'https://127.0.0.1:3000/api/:path*'
+                ? 'https://ask-your-dost.vercel.app/api/:path*'
                 : '/api/',
         },
         ]
