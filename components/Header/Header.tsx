@@ -30,9 +30,14 @@
 //   const handleSearchSubmit = async (event: React.FormEvent) => {
 //     event.preventDefault();
 
+//     if (!searchTerm.trim()) {
+//       alert("Please enter a search term.");
+//       return;
+//     }
+
 //     // Send the search term to the backend for prediction
 //     try {
-//       const response = await fetch("http://localhost:3000/api/predict", {
+//       const response = await fetch("http://127.0.0.1:5000/api/predict", {
 //         method: "POST",
 //         headers: {
 //           "Content-Type": "application/json",
@@ -169,7 +174,6 @@
 
 
 
-
 "use client";
 
 import React, { useState, useEffect } from "react";
@@ -247,8 +251,8 @@ const Header: React.FC = () => {
   };
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-4 md:text-center px-4 lg:flex lg:flex-row lg:justify-between">
-      <div className="text-center md:text-left px-0 py-6 text-2xl md:col-span-2">
+    <div className="flex flex-wrap items-center justify-between p-4">
+      <div className="text-center md:text-center py-2 text-2xl flex-shrink-0">
         <a href="/">
           <span style={{ color: "var(--orange)" }}>Ask</span>
           <span style={{ color: "var(--green)" }}>Your</span>
@@ -256,11 +260,8 @@ const Header: React.FC = () => {
         </a>
       </div>
 
-      <div className="text-center md:text-left py-6 md:col-span-2">
-        <form
-          onSubmit={handleSearchSubmit}
-          className="flex items-center justify-center"
-        >
+      <div className="flex-1 flex items-center justify-center py-2">
+        <form onSubmit={handleSearchSubmit} className="flex items-center w-full md:w-auto">
           <input
             type="text"
             placeholder="Search..."
@@ -277,31 +278,25 @@ const Header: React.FC = () => {
         </form>
       </div>
 
-      <a href="/freeListing">
-        <div className="justify-center md:text-left px-0 py-6 text-xl md:col-span-2 flex">
-          <img src="/images/freelisting-icon.png" alt="freelisting" />
+      <div className="flex items-center py-2">
+        <a href="/freeListing" className="flex items-center text-xl">
+          <img src="/images/freelisting-icon.png" alt="freelisting" className="h-6 w-6 mr-2" />
           Free listing
-        </div>
-      </a>
+        </a>
+      </div>
 
       {!isLoggedIn ? (
-        <>
-          <a href="/Login">
-            <div className="justify-center md:text-left px-0 py-6 text-xl md:col-span-2 flex">
-              <img
-                src="/images/login-icon.png"
-                alt="login icon"
-                className="text-center justify-center h-6 w-6 mr-2"
-              />
-              Login/Signup
-            </div>
+        <div className="flex items-center py-2">
+          <a href="/Login" className="flex items-center text-xl">
+            <img src="/images/login-icon.png" alt="login icon" className="h-6 w-6 mr-2" />
+            Login/Signup
           </a>
-        </>
+        </div>
       ) : (
-        <div className="relative">
+        <div className="relative flex items-center py-2">
           <span
             onClick={handleWelcomeClick}
-            className="cursor-pointer justify-center md:text-left px-0 py-6 text-xl md:col-span-2 flex items-center"
+            className="cursor-pointer flex items-center text-xl"
           >
             Welcome, {usernameCookie} <span className="ml-2">&#9660;</span>
           </span>
