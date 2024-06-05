@@ -9,7 +9,7 @@ interface NavItemProps {
 
 const NavItem: React.FC<NavItemProps> = ({ icon, text }) => (
   <div className="text-center items-center py-3 px-10   hover:rounded-full hover:bg-zinc-100">
-    <Link href={`/SearchResults?query=${encodeURIComponent(text)}`}>
+    <Link href={`/SearchResults?category=${encodeURIComponent(text)}`}>
       <div className="text-center items-center flex ">
         <img
           src={icon}
