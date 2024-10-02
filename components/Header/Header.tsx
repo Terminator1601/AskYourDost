@@ -213,7 +213,7 @@ const Header: React.FC = () => {
 
     // Send the search term to the backend for prediction
     try {
-      const response = await fetch("http://localhost:3000/api/predict", {
+      const response = await fetch("https://ask-your-dost.vercel.app/api/predict", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
