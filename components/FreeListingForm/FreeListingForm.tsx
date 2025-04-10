@@ -168,130 +168,200 @@ const FreeListingForm: React.FC = () => {
 
   // Return JSX for the component
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <div className="max-w-screen-xl flex">
-        {/* Left Side (Image) */}
-        <div className="flex-shrink-0 p-4">
-          {formData.shopImage.map((url, index) => (
-            <img
-              key={index}
-              src={url || "https://placehold.it/150x150"}
-              alt={`Shop ${index + 1}`}
-              className="rounded-md"
-              style={{ width: "150px", height: "150px", marginRight: "10px" }}
-            />
-          ))}
+    <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
+        {/* Header */}
+        <div className="text-center mb-12">
+          <h1 className="text-4xl font-bold text-gray-900">
+            <span className="text-[#e3a62f]">Free</span>{" "}
+            <span className="text-[#5c941d]">Business</span>{" "}
+            <span className="text-[#0cc0df]">Listing</span>
+          </h1>
+          <p className="mt-4 text-lg text-gray-600">
+            List your business for free and reach thousands of potential customers
+          </p>
         </div>
 
-        {/* Right Side (Form) */}
-        <div className="flex-grow p-8 bg-white shadow-md rounded-md">
-          <h2 className="text-2xl font-semibold mb-4">
-            <span style={{ color: "var(--green)" }}>Your </span>Business
-            Information
-          </h2>
-
-          {/* Other Input Fields */}
-          {inputFields.map((field) => (
-            <div key={field.name} className="mb-4">
-              <label
-                htmlFor={field.name}
-                className="block text-sm font-medium text-gray-600"
-              >
-                {field.label}
-              </label>
-              {field.type === "textarea" ? (
-                <textarea
-                  id={field.name}
-                  name={field.name}
-                  value={formData[field.name]}
-                  onChange={handleChange}
-                  rows={field.rows}
-                  className="mt-1 p-2 w-full border rounded-md"
-                  required
-                />
-              ) : field.type === "select" ? (
-                <select
-                  id={field.name}
-                  name={field.name}
-                  value={formData[field.name]}
-                  onChange={handleSelectChange}
-                  className="mt-1 p-2 w-full border rounded-md"
-                  required
-                >
-                  <option value="" disabled>
-                    Select an option
-                  </option>
-                  {servicesOptions.map((option) => (
-                    <option key={option} value={option}>
-                      {option}
-                    </option>
-                  ))}
-                </select>
-              ) : (
-                <input
-                  type={field.type}
-                  id={field.name}
-                  name={field.name}
-                  value={formData[field.name]}
-                  onChange={handleChange}
-                  className="mt-1 p-2 w-full border rounded-md"
-                  required
-                />
-              )}
+        {/* Main Content */}
+        <div className="flex flex-col lg:flex-row gap-8 bg-white rounded-2xl shadow-lg overflow-hidden">
+          {/* Left Side (Preview) */}
+          <div className="lg:w-1/3 bg-gray-50 p-8">
+            <h3 className="text-xl font-semibold text-gray-800 mb-6">Preview Images</h3>
+            <div className="grid grid-cols-2 gap-4">
+              {formData.shopImage.map((url, index) => (
+                <div key={index} className="relative group">
+                  <img
+                    src={url || "https://via.placeholder.com/150"}
+                    alt={`Shop ${index + 1}`}
+                    className="w-full h-32 object-cover rounded-lg shadow-md transition-transform duration-200 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-opacity duration-200 rounded-lg" />
+                </div>
+              ))}
             </div>
-          ))}
-
-          {/* Number of Images Input */}
-          <div className="mb-4">
-            <label
-              htmlFor="numImages"
-              className="block text-sm font-medium text-gray-600"
-            >
-              Number of Images to Upload (Max: 10)
-            </label>
-            <input
-              type="number"
-              id="numImages"
-              name="numImages"
-              value={numImages}
-              onChange={handleNumImagesChange}
-              className="mt-1 p-2 w-full border rounded-md"
-              min="0"
-              max="10"
-            />
           </div>
 
-          {/* Shop Image Input(s) */}
-          {Array.from({ length: numImages }, (_, index) => (
-            <div key={index} className="mb-4">
-              <label
-                htmlFor={`shopImage${index + 1}`}
-                className="block text-sm font-medium text-gray-600"
-              >
-                Shop Image {index + 1}
-              </label>
-              <input
-                type="text"
-                id={`shopImage${index + 1}`}
-                name={`shopImage${index + 1}`}
-                value={formData.shopImage[index]}
-                onChange={(e) => handleShopImageChange(e, index)}
-                className="mt-1 p-2 w-full border rounded-md"
-                required
-              />
-            </div>
-          ))}
+          {/* Right Side (Form) */}
+          <div className="lg:w-2/3 p-8">
+            <h2 className="text-3xl font-bold mb-8">
+              <span className="text-[#5c941d]">Business</span>{" "}
+              <span className="text-gray-800">Information</span>
+            </h2>
 
-          {/* Submit Button */}
-          <button
-            type="submit"
-            onClick={handleSubmit}
-            className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600"
-          >
-            Submit
-          </button>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {inputFields.map((field) => (
+                <div key={field.name} className={field.type === "textarea" ? "md:col-span-2" : ""}>
+                  <label
+                    htmlFor={field.name}
+                    className="block text-sm font-medium text-gray-700 mb-2"
+                  >
+                    {field.label}
+                  </label>
+                  {field.type === "textarea" ? (
+                    <textarea
+                      id={field.name}
+                      name={field.name}
+                      value={formData[field.name]}
+                      onChange={handleChange}
+                      rows={field.rows}
+                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#0cc0df] focus:border-transparent transition-all duration-200"
+                      required
+                    />
+                  ) : field.type === "select" ? (
+                    <select
+                      id={field.name}
+                      name={field.name}
+                      value={formData[field.name]}
+                      onChange={handleSelectChange}
+                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#5c941d] focus:border-transparent transition-all duration-200"
+                      required
+                    >
+                      <option value="" disabled>Select an option</option>
+                      {servicesOptions.map((option) => (
+                        <option key={option} value={option}>{option}</option>
+                      ))}
+                    </select>
+                  ) : (
+                    <input
+                      type={field.type}
+                      id={field.name}
+                      name={field.name}
+                      value={formData[field.name]}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#e3a62f] focus:border-transparent transition-all duration-200"
+                      required
+                    />
+                  )}
+                </div>
+              ))}
+
+              {/* Number of Images Input */}
+              <div>
+                <label
+                  htmlFor="numImages"
+                  className="block text-sm font-medium text-gray-700 mb-2"
+                >
+                  Number of Images (Max: 10)
+                </label>
+                <input
+                  type="number"
+                  id="numImages"
+                  name="numImages"
+                  value={numImages}
+                  onChange={handleNumImagesChange}
+                  className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#0cc0df] focus:border-transparent transition-all duration-200"
+                  min="0"
+                  max="10"
+                />
+              </div>
+            </div>
+
+            {/* Shop Image Inputs */}
+            {numImages > 0 && (
+              <div className="mt-8">
+                <h3 className="text-lg font-semibold text-gray-800 mb-4">Image URLs</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {Array.from({ length: numImages }, (_, index) => (
+                    <div key={index}>
+                      <label
+                        htmlFor={`shopImage${index + 1}`}
+                        className="block text-sm font-medium text-gray-700 mb-2"
+                      >
+                        Image {index + 1}
+                      </label>
+                      <input
+                        type="text"
+                        id={`shopImage${index + 1}`}
+                        name={`shopImage${index + 1}`}
+                        value={formData.shopImage[index]}
+                        onChange={(e) => handleShopImageChange(e, index)}
+                        className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#0cc0df] focus:border-transparent transition-all duration-200"
+                        placeholder="Enter image URL"
+                        required
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Submit Button */}
+            <button
+              type="submit"
+              onClick={handleSubmit}
+              className="mt-8 w-full bg-[#5c941d] text-white px-6 py-4 rounded-lg font-semibold hover:bg-[#528a1a] transition-colors duration-200 shadow-md hover:shadow-lg"
+            >
+              Submit Listing
+            </button>
+          </div>
         </div>
       </div>
+
+      {/* Success Popup */}
+      {showSuccessPopup && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white p-8 rounded-xl shadow-xl max-w-md w-full mx-4">
+            <div className="text-center">
+              <div className="w-16 h-16 bg-[#5c941d] rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-2">Success!</h3>
+              <p className="text-gray-600 mb-6">Your listing has been submitted successfully.</p>
+              <button
+                onClick={() => window.location.reload()}
+                className="w-full bg-[#5c941d] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#528a1a] transition-colors duration-200"
+              >
+                Done
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Error Popup */}
+      {showErrorPopup && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white p-8 rounded-xl shadow-xl max-w-md w-full mx-4">
+            <div className="text-center">
+              <div className="w-16 h-16 bg-red-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-2">Error</h3>
+              <p className="text-gray-600 mb-6">An error occurred while submitting your listing. Please try again.</p>
+              <button
+                onClick={() => setShowErrorPopup(false)}
+                className="w-full bg-red-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-red-600 transition-colors duration-200"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

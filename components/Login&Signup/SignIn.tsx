@@ -1,215 +1,4 @@
-// import { getDocs, query, where, collection } from "firebase/firestore";
-// import React, { useState } from "react";
-// import { db } from "../../database/firebaseConfig";
-// import crypto from "crypto";
-// import { UserProvider } from "@/database/User/UserContext";
-// import { useUser } from "@/database/User/UserContext";
 
-// type UserData = {
-//   username: string;
-//   email: string;
-//   phone: string;
-//   password: string;
-//   captcha: string;
-//   enteredCaptcha: string;
-//   status: string;
-// };
-
-// const SignIn: React.FC = () => {
-//   const { updateUser /* other user data */ } = useUser();
-
-//   const [formData, setFormData] = useState<UserData>({
-//     username: "",
-//     email: "",
-//     phone: "",
-//     password: "",
-//     captcha: "",
-//     enteredCaptcha: "",
-//     status: "offline",
-//   });
-
-//   const generateCaptcha = () => {
-//     const captcha = crypto.randomBytes(3).toString("hex");
-//     setFormData({ ...formData, captcha, enteredCaptcha: "" });
-//   };
-
-//   const handleRefreshCaptcha = () => {
-//     generateCaptcha();
-//   };
-
-//   const [isLoginMode, setIsLoginMode] = useState(true);
-//   const [isLoggedIn, setIsLoggedIn] = useState(false);
-//   const [username, setUsername] = useState("");
-
-//   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-//     setFormData({
-//       ...formData,
-//       [e.target.name]: e.target.value,
-//     });
-//   };
-
-//   const handleSuccessfulLogin = (username: string) => {
-//     setIsLoggedIn(true);
-//     setUsername(username);
-//     setFormData((prevData) => ({ ...prevData, status: "online" }));
-//     updateUser({ ...formData });
-//   };
-
-//   const handleSubmit = async () => {
-//     try {
-//       if (formData.captcha !== formData.enteredCaptcha) {
-//         throw new Error("Invalid captcha");
-//       }
-
-//       // Check if the user exists with the provided email
-//       const userQuery = query(
-//         collection(db, "userData"),
-//         where("email", "==", formData.email)
-//       );
-//       const userSnapshot = await getDocs(userQuery);
-
-//       if (userSnapshot.empty) {
-//         throw new Error("Email not registered. Please register.");
-//       }
-
-//       // Check if the password matches
-//       const userData = userSnapshot.docs[0].data() as UserData;
-//       if (userData.password !== formData.password) {
-//         throw new Error("Invalid password");
-//       }
-
-//       console.log("Login successful!");
-//       window.alert(`Welcome ${userData.username}! Login successful!`);
-//       handleSuccessfulLogin(userData.username);
-//     } catch (error: any) {
-//       console.error(`Error during login:`, error);
-//       window.alert(`Error during login: ${error.message}`);
-//       if (error.message === "Email not registered. Please register.") {
-//         setIsLoginMode(false);
-//       }
-//     } finally {
-//       generateCaptcha();
-//     }
-//   };
-
-//   const toggleMode = () => {
-//     setIsLoginMode((prevMode) => !prevMode);
-//     generateCaptcha();
-//   };
-
-//   React.useEffect(() => {
-//     generateCaptcha();
-//   }, []);
-
-//   return (
-//     <UserProvider>
-//       <div className="max-w-md mx-auto mt-8 p-4 bg-white rounded-md shadow-md">
-//         {isLoggedIn ? (
-//           <>
-//             <p className="text-xl font-semibold mb-4">
-//               Welcome {username}! You are logged in.
-//             </p>
-//             <button
-//               onClick={() => (window.location.href = "/")}
-//               className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
-//             >
-//               Go to Home Page
-//             </button>
-//           </>
-//         ) : (
-//           <>
-//             <h2 className="text-2xl font-semibold mb-4">
-//               {isLoginMode ? "Login" : "Registration"} Form
-//             </h2>
-//             <label className="block mb-2">
-//               Email:
-//               <input
-//                 type="email"
-//                 name="email"
-//                 value={formData.email}
-//                 onChange={handleChange}
-//                 className="block w-full mt-1 p-2 border rounded-md"
-//               />
-//             </label>
-//             {!isLoginMode && (
-//               <>
-//                 <label className="block mb-2">
-//                   Username:
-//                   <input
-//                     type="text"
-//                     name="username"
-//                     value={formData.username}
-//                     onChange={handleChange}
-//                     className="block w-full mt-1 p-2 border rounded-md"
-//                   />
-//                 </label>
-//                 <label className="block mb-2">
-//                   Phone:
-//                   <input
-//                     type="tel"
-//                     name="phone"
-//                     value={formData.phone}
-//                     onChange={handleChange}
-//                     className="block w-full mt-1 p-2 border rounded-md"
-//                   />
-//                 </label>
-//               </>
-//             )}
-//             <label className="block mb-2">
-//               Password:
-//               <input
-//                 type="password"
-//                 name="password"
-//                 value={formData.password}
-//                 onChange={handleChange}
-//                 className="block w-full mt-1 p-2 border rounded-md"
-//               />
-//             </label>
-//             <label className="block mb-2">
-//               Captcha: {formData.captcha}
-//               <input
-//                 type="text"
-//                 name="enteredCaptcha"
-//                 value={formData.enteredCaptcha}
-//                 onChange={handleChange}
-//                 className="block w-full mt-1 p-2 border rounded-md"
-//               />
-//             </label>
-//             <div className="flex space-x-4">
-//               <button
-//                 onClick={handleSubmit}
-//                 className={`flex-1 ${
-//                   isLoginMode ? "bg-green-500" : "bg-blue-500"
-//                 } text-white px-4 py-2 rounded-md hover:${
-//                   isLoginMode ? "bg-green-600" : "bg-blue-600"
-//                 }`}
-//               >
-//                 {isLoginMode ? "Login" : "Register"}
-//               </button>
-//               <button
-//                 onClick={handleRefreshCaptcha}
-//                 className="bg-gray-300 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-400"
-//               >
-//                 Refresh Captcha
-//               </button>
-//             </div>
-//             <p className="mt-2">
-//               {isLoginMode ? "New user? " : "Already have an account? "}
-//               <button
-//                 onClick={toggleMode}
-//                 className="text-blue-500 hover:underline focus:outline-none"
-//               >
-//                 {isLoginMode ? "Register here" : "Login here"}
-//               </button>
-//             </p>
-//           </>
-//         )}
-//       </div>
-//     </UserProvider>
-//   );
-// };
-
-// export default SignIn;
 
 import { getDocs, addDoc, query, where, collection } from "firebase/firestore";
 import React, { useState } from "react";
@@ -346,106 +135,125 @@ const SignIn: React.FC = () => {
 
   return (
     <UserProvider>
-      <div className="max-w-md mx-auto mt-8 p-4 bg-white rounded-md shadow-md">
+      <div className="max-w-md mx-auto mt-8 p-8 bg-white rounded-xl shadow-lg">
         {isLoggedIn ? (
-          <>
-            <p className="text-xl font-semibold mb-4">
-              Welcome {username}! You are logged in.
+          <div className="text-center">
+            <p className="text-2xl font-bold mb-6 text-gray-800">
+              Welcome <span className="text-[#e3a62f]">{username}</span>!
             </p>
             <button
               onClick={() => (window.location.href = "/")}
-              className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+              className="bg-[#0cc0df] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#0ab0cf] transition-colors duration-200"
             >
               Go to Home Page
             </button>
-          </>
+          </div>
         ) : (
-          <>
-            <h2 className="text-2xl font-semibold mb-4">
-              {isLoginMode ? "Login" : "Registration"} Form
-            </h2>
-            <label className="block mb-2">
-              Email:
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                className="block w-full mt-1 p-2 border rounded-md"
-              />
-            </label>
-            {!isLoginMode && (
-              <>
-                <label className="block mb-2">
-                  Username:
+          <div className="space-y-6">
+            <div className="text-center">
+              <h2 className="text-3xl font-bold text-gray-800">
+                {isLoginMode ? "Welcome Back!" : "Create Account"}
+              </h2>
+              <p className="text-gray-600 mt-2">
+                {isLoginMode ? "Sign in to continue" : "Join our community"}
+              </p>
+            </div>
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 rounded-lg border focus:ring-2 focus:ring-[#0cc0df] focus:border-transparent"
+                  placeholder="Enter your email"
+                />
+              </div>
+              {!isLoginMode && (
+                <>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Username</label>
+                    <input
+                      type="text"
+                      name="username"
+                      value={formData.username}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 rounded-lg border focus:ring-2 focus:ring-[#5c941d] focus:border-transparent"
+                      placeholder="Choose a username"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Phone</label>
+                    <input
+                      type="tel"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 rounded-lg border focus:ring-2 focus:ring-[#5c941d] focus:border-transparent"
+                      placeholder="Enter your phone number"
+                    />
+                  </div>
+                </>
+              )}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                <input
+                  type="password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 rounded-lg border focus:ring-2 focus:ring-[#e3a62f] focus:border-transparent"
+                  placeholder="Enter your password"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Captcha</label>
+                <div className="flex items-center space-x-4">
                   <input
                     type="text"
-                    name="username"
-                    value={formData.username}
+                    name="enteredCaptcha"
+                    value={formData.enteredCaptcha}
                     onChange={handleChange}
-                    className="block w-full mt-1 p-2 border rounded-md"
+                    className="flex-1 px-4 py-3 rounded-lg border focus:ring-2 focus:ring-[#0cc0df] focus:border-transparent"
+                    placeholder="Enter captcha"
                   />
-                </label>
-                <label className="block mb-2">
-                  Phone:
-                  <input
-                    type="tel"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    className="block w-full mt-1 p-2 border rounded-md"
-                  />
-                </label>
-              </>
-            )}
-            <label className="block mb-2">
-              Password:
-              <input
-                type="password"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                className="block w-full mt-1 p-2 border rounded-md"
-              />
-            </label>
-            <label className="block mb-2">
-              Captcha: {formData.captcha}
-              <input
-                type="text"
-                name="enteredCaptcha"
-                value={formData.enteredCaptcha}
-                onChange={handleChange}
-                className="block w-full mt-1 p-2 border rounded-md"
-              />
-            </label>
-            <div className="flex space-x-4">
+                  <div className="flex items-center space-x-2">
+                    <span className="font-mono text-lg font-medium bg-gray-100 px-3 py-2 rounded">
+                      {formData.captcha}
+                    </span>
+                    <button
+                      onClick={handleRefreshCaptcha}
+                      className="p-2 text-gray-500 hover:text-[#0cc0df]"
+                    >
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
               <button
                 onClick={handleSubmit}
-                className={`flex-1 ${
-                  isLoginMode ? "bg-green-500" : "bg-blue-500"
-                } text-white px-4 py-2 rounded-md hover:${
-                  isLoginMode ? "bg-green-600" : "bg-blue-600"
+                className={`w-full py-3 rounded-lg font-semibold text-white transition-colors ${
+                  isLoginMode 
+                    ? "bg-[#5c941d] hover:bg-[#528a1a]" 
+                    : "bg-[#0cc0df] hover:bg-[#0ab0cf]"
                 }`}
               >
-                {isLoginMode ? "Login" : "Register"}
+                {isLoginMode ? "Sign In" : "Create Account"}
               </button>
-              <button
-                onClick={handleRefreshCaptcha}
-                className="bg-gray-300 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-400"
-              >
-                Refresh Captcha
-              </button>
+              <p className="text-center text-gray-600">
+                {isLoginMode ? "New to AskYourDost? " : "Already have an account? "}
+                <button
+                  onClick={toggleMode}
+                  className="text-[#0cc0df] hover:text-[#0ab0cf] font-medium"
+                >
+                  {isLoginMode ? "Create an account" : "Sign in"}
+                </button>
+              </p>
             </div>
-            <p className="mt-2">
-              {isLoginMode ? "New user? " : "Already have an account? "}
-              <button
-                onClick={toggleMode}
-                className="text-blue-500 hover:underline focus:outline-none"
-              >
-                {isLoginMode ? "Register here" : "Login here"}
-              </button>
-            </p>
-          </>
+          </div>
         )}
       </div>
     </UserProvider>
