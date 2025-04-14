@@ -1,6 +1,3 @@
-
-
-
 "use client";
 
 import React, { useState, useEffect } from "react";
@@ -78,89 +75,107 @@ const Header: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-wrap items-center justify-between p-4">
-      <div className="text-center md:text-center py-2 text-2xl flex-shrink-0">
-        <a href="/">
-          <span style={{ color: "var(--orange)" }}>Ask</span>
-          <span style={{ color: "var(--green)" }}>Your</span>
-          <span style={{ color: "var(--blue)" }}>Dost</span>
-        </a>
-      </div>
+    <header className="sticky top-0 bg-white shadow-sm z-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16">
+          {/* Logo */}
+          <div className="flex-shrink-0">
+            <a href="/" className="flex items-center text-2xl font-bold">
+              <span className="text-[#e3a62f]">Ask</span>
+              <span className="text-[#5c941d]">Your</span>
+              <span className="text-[#0cc0df]">Dost</span>
+            </a>
+          </div>
 
-      <div className="flex-1 flex items-center justify-center py-2">
-        <form onSubmit={handleSearchSubmit} className="flex items-center w-full md:w-auto">
-          <input
-            type="text"
-            placeholder="Search..."
-            value={searchTerm}
-            onChange={handleSearchChange}
-            className="px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500 w-full md:w-auto"
-          />
-          <button
-            type="submit"
-            className="ml-2 px-4 py-2 bg-blue-500 text-white rounded-3xl"
-          >
-            Search
-          </button>
-        </form>
-      </div>
+          {/* Search Bar */}
+          <div className="flex-1 max-w-2xl mx-8">
+            <form onSubmit={handleSearchSubmit} className="relative">
+              <input
+                type="text"
+                placeholder="Search for services..."
+                value={searchTerm}
+                onChange={handleSearchChange}
+                className="w-full px-4 py-2 pl-10 pr-12 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#0cc0df] focus:border-transparent transition-all duration-200"
+              />
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </div>
+              <button
+                type="submit"
+                className="absolute inset-y-0 right-0 px-4 text-white bg-[#5c941d] hover:bg-[#528a1a] rounded-r-lg transition-colors duration-200"
+              >
+                Search
+              </button>
+            </form>
+          </div>
 
-      <div className="flex items-center py-2">
-        <a href="/freeListing" className="flex items-center text-xl">
-          <img src="/images/freelisting-icon.png" alt="freelisting" className="h-6 w-6 mr-2" />
-          Free listing
-        </a>
-      </div>
+          {/* Navigation */}
+          <nav className="flex items-center space-x-6">
+            <a
+              href="/freeListing"
+              className="flex items-center space-x-2 text-gray-700 hover:text-[#e3a62f] transition-colors duration-200"
+            >
+              <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+              </svg>
+              <span className="font-medium">Free Listing</span>
+            </a>
 
-      {!isLoggedIn ? (
-        <div className="flex items-center py-2">
-          <a href="/Login" className="flex items-center text-xl">
-            <img src="/images/login-icon.png" alt="login icon" className="h-6 w-6 mr-2" />
-            Login/Signup
-          </a>
+            {!isLoggedIn ? (
+              <a
+                href="/Login"
+                className="flex items-center space-x-2 text-gray-700 hover:text-[#0cc0df] transition-colors duration-200"
+              >
+                <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+                <span className="font-medium">Login/Signup</span>
+              </a>
+            ) : (
+              <div className="relative">
+                <button
+                  onClick={handleWelcomeClick}
+                  className="flex items-center space-x-2 text-gray-700 hover:text-[#5c941d] transition-colors duration-200"
+                >
+                  <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                  </svg>
+                  <span className="font-medium">{usernameCookie}</span>
+                  <svg className={`h-4 w-4 transition-transform duration-200 ${showDropdown ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+
+                {showDropdown && (
+                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-1 border border-gray-100">
+                    <a
+                      href="#"
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-[#5c941d] transition-colors duration-200"
+                    >
+                      Change Username
+                    </a>
+                    <a
+                      href="#"
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-[#5c941d] transition-colors duration-200"
+                    >
+                      Change Password
+                    </a>
+                    <button
+                      onClick={handleLogout}
+                      className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors duration-200"
+                    >
+                      Logout
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
+          </nav>
         </div>
-      ) : (
-        <div className="relative flex items-center py-2">
-          <span
-            onClick={handleWelcomeClick}
-            className="cursor-pointer flex items-center text-xl"
-          >
-            Welcome, {usernameCookie} <span className="ml-2">&#9660;</span>
-          </span>
-
-          {showDropdown && (
-            <div className="absolute z-10 mt-2 bg-white border rounded-md shadow-md">
-              <ul>
-                <li>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-200"
-                  >
-                    Change Username
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-200"
-                  >
-                    Change Password
-                  </a>
-                </li>
-                <li>
-                  <button
-                    onClick={handleLogout}
-                    className="w-full text-left px-4 py-2 text-sm text-red-500 hover:bg-red-100"
-                  >
-                    Logout
-                  </button>
-                </li>
-              </ul>
-            </div>
-          )}
-        </div>
-      )}
-    </div>
+      </div>
+    </header>
   );
 };
 

@@ -1,25 +1,41 @@
 import React from "react";
 import ServicesCard from "./ServicesCard";
 import { ServicesData } from "../../app/MainData";
-const PopularSearches = () => {
+
+const Services = () => {
   return (
-    <>
-      <div className="">
-        <div className="text-lg font-bold py-8 pl-5">Services Provided</div>
-        <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-4 text-center place-content-center ">
+    <section className="bg-gradient-to-br from-white via-gray-50 to-white py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header */}
+        <div className="flex flex-col items-center mb-12">
+          <div className="flex items-center space-x-2 mb-4">
+            <div className="h-1 w-8 bg-[#e3a62f] rounded-full" />
+            <h2 className="text-3xl font-bold">
+              <span className="text-gray-900">Our</span>{" "}
+              <span className="text-[#5c941d]">Services</span>
+            </h2>
+            <div className="h-1 w-8 bg-[#0cc0df] rounded-full" />
+          </div>
+          <p className="text-gray-600 text-center max-w-2xl">
+            Explore our comprehensive range of services designed to meet your local needs
+          </p>
+        </div>
+
+        {/* Services Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
           {ServicesData.map((item, index) => (
-            <a href={`/Services`} key={index}>
-              <div className="px-3">
-                <ServicesCard imageUrl={item.imageUrl} title={item.title} />
-              </div>
+            <a
+              href="/Services"
+              key={index}
+              className="transform transition-all duration-300 hover:-translate-y-1"
+            >
+              <ServicesCard imageUrl={item.imageUrl} title={item.title} />
             </a>
           ))}
         </div>
-        <br />
-        <br />
       </div>
-    </>
+    </section>
   );
 };
 
-export default PopularSearches;
+export default Services;
