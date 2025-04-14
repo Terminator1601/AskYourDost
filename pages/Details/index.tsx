@@ -15,7 +15,7 @@ const Index = () => {
   useEffect(() => {
     const fetchData = async () => {
       // Simulate fetching data
-      await new Promise((resolve) => setTimeout(resolve, 2000)); // Simulating a delay
+      await new Promise((resolve) => setTimeout(resolve, 1000)); // Reduced delay for better UX
       setLoading(false);
     };
 
@@ -24,16 +24,24 @@ const Index = () => {
 
   return (
     <UserProvider>
-      {loading ?  (
-        <Loader />
+      {loading ? (
+        <div className="min-h-screen flex items-center justify-center bg-gray-50">
+          <Loader />
+        </div>
       ) : (
-        <div style={{ backgroundColor: "var(--grey)" }}>
-          <main className="sm:mx-20 md:px-16 md:py-0 lg:px-16 lg:py-0 bg-white">
-            <Header />
-            <hr />
-            <Navbar />
+        <div className="min-h-screen bg-gray-50">
+          <div className="sticky top-0 z-50 bg-white shadow-sm">
+            <div className="max-w-7xl mx-auto">
+              <Header />
+              <hr className="border-gray-200" />
+              <Navbar />
+            </div>
+          </div>
+
+          <main className="max-w-7xl mx-auto">
             <CardDetails />
           </main>
+
           <Footer />
         </div>
       )}
